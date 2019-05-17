@@ -72,4 +72,10 @@ public class SellController {
         return modelAndView;
     }
 
+    @RequestMapping("/selllist.html")
+    public ModelAndView lendList(){
+        ModelAndView modelAndView=new ModelAndView("admin_sell_list");
+        modelAndView.addObject("list",sellService.sellList());
+        return modelAndView;
+    }
 }

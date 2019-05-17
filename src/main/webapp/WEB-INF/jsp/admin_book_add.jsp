@@ -23,7 +23,7 @@
 <nav  style="position:fixed;z-index: 999;width: 100%;background-color: #fff" class="navbar navbar-default" role="navigation" >
     <div class="container-fluid">
         <div class="navbar-header" style="margin-left: 8%;margin-right: 1%">
-            <a class="navbar-brand" href="admin_main.html">图书管理系统</a>
+            <a class="navbar-brand" href="admin_main.html">小熊书屋</a>
         </div>
         <div class="collapse navbar-collapse" >
             <ul class="nav navbar-nav navbar-left">
@@ -51,11 +51,22 @@
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        借还管理
+                        订单管理
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="lendlist.html">借还日志</a></li>
+                        <li><a href="/selllist.html">全部订单</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        出版社管理
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="adminallpublish.html">全部出版社</a></li>
+                        <li class="divider"></li>
+                        <li><a href="reader_add.html">增加出版社</a></li>
                     </ul>
                 </li>
                 <li >
@@ -83,6 +94,10 @@
                     <input type="text" class="form-control" name="author" id="author"  placeholder="请输入作者名">
                 </div>
                 <div class="form-group">
+                    <label for="author">译者</label>
+                    <input type="text" class="form-control" name="translator" id="translator"  placeholder="请输入译者名">
+                </div>
+                <div class="form-group">
                     <label for="publish">出版社</label>
                     <input type="text" class="form-control"  name="publish" id="publish"  placeholder="请输入出版社">
                 </div>
@@ -103,6 +118,10 @@
                     <input type="text" class="form-control"  name="price"  id="price" placeholder="请输入价格">
                 </div>
                 <div class="form-group">
+                    <label for="price">会员特价</label>
+                    <input type="text" class="form-control"  name="vipprice"  id="vipprice" placeholder="请输入会员特价">
+                </div>
+                <div class="form-group">
                     <label for="pubdate">出版日期</label>
                     <input type="text" class="form-control"  name="pubdate" id="pubdate"   placeholder="请输入出版日期">
                 </div>
@@ -115,8 +134,8 @@
                     <input type="text" class="form-control"  name="pressmark" id="pressmark" placeholder="请输入书架号">
                 </div>
                 <div class="form-group">
-                    <label for="state">状态</label>
-                    <input type="text" class="form-control"  name="state"  id="state"   placeholder="请输入图书状态">
+                    <label for="state">库存数量</label>
+                    <input type="text" class="form-control"  name="state"  id="state"   placeholder="请输入库存数量">
                 </div>
 
 

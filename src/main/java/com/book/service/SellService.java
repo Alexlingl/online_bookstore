@@ -23,4 +23,8 @@ public class SellService {
     public boolean addSell(Sell sell){
         return sellDao.addBuy(sell)>0;
     }
+
+    public ArrayList<Sell> sellList(){
+        return sellDao.sellList();
+    }
 }
