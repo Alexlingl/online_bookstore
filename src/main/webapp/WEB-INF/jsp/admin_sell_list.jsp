@@ -63,7 +63,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="allreaders.html">全部出版社</a></li>
                         <li class="divider"></li>
-                        <li><a href="reader_add.html">增加出版社</a></li>
+                        <li><a href="publish_add.html">增加出版社</a></li>
                     </ul>
                 </li>
                 <li >
@@ -117,6 +117,8 @@
                 <th>定价</th>
                 <th>书号</th>
                 <th>订单状态</th>
+                <th>编辑</th>
+                <th>删除</th>
             </tr>
             </thead>
             <tbody>
@@ -136,6 +138,8 @@
                     <c:if test="${alog.state==2}">
                         <td>已接收</td>
                     </c:if>
+                    <td><a href="sell_edit.html?serialNumber=<c:out value="${alog.serialNumber}"></c:out>"><button type="button" class="btn btn-info btn-xs">编辑</button></a></td>
+                    <td><a href="sell_delete.html?serialNumber=<c:out value="${alog.serialNumber}"></c:out>"><button type="button" class="btn btn-danger btn-xs">删除</button></a></td>
                 </tr>
             </c:forEach>
             </tbody>

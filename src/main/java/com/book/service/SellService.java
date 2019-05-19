@@ -27,4 +27,13 @@ public class SellService {
     public ArrayList<Sell> sellList(){
         return sellDao.sellList();
     }
+
+    public Sell getSell(int serialNumber){
+        return sellDao.getSell(serialNumber);
+    }
+
+    public boolean editSell(Sell sell){return sellDao.editSell(sell)>0;}
+
+    public boolean deleteSell(int serialNumber){return sellDao.deleteSell(serialNumber)>0;}
+
 }

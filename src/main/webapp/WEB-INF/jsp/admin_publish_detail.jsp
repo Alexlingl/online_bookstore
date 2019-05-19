@@ -59,7 +59,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="allreaders.html">全部出版社</a></li>
                         <li class="divider"></li>
-                        <li><a href="reader_add.html">增加出版社</a></li>
+                        <li><a href="publish_add.html">增加出版社</a></li>
                     </ul>
                 </li>
                 <li >
@@ -106,7 +106,7 @@
                 </tbody>
             </table>
         </div>
-        <a class="btn btn-success btn-sm" href="reader_book_detail.html" role="button">返回</a>
+        <a class="btn btn-success btn-sm" href="allbooks.html" role="button">返回</a>
     </div>
 
 </div>

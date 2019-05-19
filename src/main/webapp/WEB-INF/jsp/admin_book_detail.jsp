@@ -67,7 +67,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="allreaders.html">全部出版社</a></li>
                         <li class="divider"></li>
-                        <li><a href="reader_add.html">增加出版社</a></li>
+                        <li><a href="publish_add.html">增加出版社</a></li>
                     </ul>
                 </li>
                 <li >

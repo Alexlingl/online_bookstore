@@ -9,8 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Controller
@@ -78,4 +84,52 @@ public class SellController {
         modelAndView.addObject("list",sellService.sellList());
         return modelAndView;
     }
+
+    @RequestMapping("/sell_edit.html")
+    public ModelAndView sellEdit(HttpServletRequest request){
+        int serialNumber = Integer.parseInt(request.getParameter("serialNumber"));
+        Sell sell = sellService.getSell(serialNumber);
+        ModelAndView modelAndView=new ModelAndView("admin_sell_edit");
+        modelAndView.addObject("sell",sell);
+        return modelAndView;
+    }
+    @RequestMapping("/sell_edit_do.html")
+    public String sellEditDo(HttpServletRequest request, RedirectAttributes redirectAttributes) throws UnsupportedEncodingException {
+        Sell sell = new Sell();
+        sell.setSerialNumber(new Integer(request.getParameter("serialNumber")));
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+        Date date=new Date();
+        try{
+            java.util.Date date_tmp=sdf.parse(request.getParameter("date"));
+            date=date_tmp;
+        }catch (ParseException e){
+            e.printStackTrace();
+        }
+        sell.setDate(date);
+        sell.setReaderId(new Integer(request.getParameter("readerId")));
+        sell.setPrice(new BigDecimal(request.getParameter("price")));
+        sell.setBookId(new Long(request.getParameter("bookId")));
+        sell.setState(new Integer(request.getParameter("state")));
+
+        boolean succ = sellService.editSell(sell);
+        if(succ){
+            redirectAttributes.addFlashAttribute("succ","订单修改成功");
+        }else{
+            redirectAttributes.addFlashAttribute("error","订单修改失败");
+        }
+        return "redirect:/selllist.html";
+    }
+
+    @RequestMapping("/sell_delete.html")
+    public String deleteSell(HttpServletRequest request,RedirectAttributes redirectAttributes){
+        int serialNumber = new Integer(request.getParameter("serialNumber"));
+        boolean succ = sellService.deleteSell(serialNumber);
+        if(succ){
+            redirectAttributes.addFlashAttribute("succ","成功删除订单");
+        }else{
+            redirectAttributes.addFlashAttribute("error","订单删除失败");
+        }
+        return "redirect:/selllist.html";
+    }
+
 }

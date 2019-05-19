@@ -24,6 +24,9 @@ public class SellDao {
     private final static String MY_BUY_LIST_SQL="SELECT * FROM sell_info WHERE reader_id = ? ";
     private final static String ADD_BUY_SQL="INSERT INTO sell_info (date,reader_id,price,book_id,state) VALUES(?,?,?,?,?) ";
     private final static String SELL_LIST_SQL="SELECT * FROM sell_info";
+    private final static String GET_SELL_SQL="SELECT * FROM sell_info where serial_number = ?";
+    private final static String EDIT_SELL_SQL="UPDATE sell_info SET date = ?, reader_id = ?, price = ?, book_id = ?, state = ? where serial_number = ?;";
+    private final static String DELETE_SELL_SQL="DELETE FROM sell_info WHERE serial_number = ?;";
 
     public ArrayList<Sell> myBuyList(int readerId){
         final ArrayList<Sell> list=new ArrayList<Sell>();
@@ -74,6 +77,39 @@ public class SellDao {
             }
         });
         return list;
+    }
+
+    public Sell getSell(int serialNumber){
+        Sell sell = new Sell();
+        jdbcTemplate.query(GET_SELL_SQL,new Object[]{serialNumber},new RowCallbackHandler(){
+            @Override
+            public void processRow(ResultSet resultSet) throws SQLException {
+                sell.setSerialNumber(resultSet.getInt("serial_number"));
+                sell.setPrice(resultSet.getBigDecimal("price"));
+                sell.setDate(resultSet.getDate("date"));
+                sell.setState(resultSet.getInt("state"));
+                sell.setBookId(resultSet.getLong("book_id"));
+                sell.setReaderId(resultSet.getInt("reader_id"));
+            }
+        });
+        return sell;
+    }
+
+    public int editSell(Sell sell){
+        int serialNumber = sell.getSerialNumber();
+        Date date = sell.getDate();
+        int readerId = sell.getReaderId();
+        BigDecimal price = sell.getPrice();
+        long bookId = sell.getBookId();
+        int state = sell.getState();
+
+        System.out.println(date+";"+serialNumber+";"+price);
+        int x=jdbcTemplate.update(EDIT_SELL_SQL,new Object[]{date,readerId,price,bookId,state,serialNumber});
+        return x;
+    }
+
+    public int deleteSell(int serialNumber){
+        return jdbcTemplate.update(DELETE_SELL_SQL,new Object[]{serialNumber});
     }
 
 }

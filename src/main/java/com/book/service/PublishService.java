@@ -34,4 +34,8 @@ public class PublishService {
     public boolean editPublish(Publish publish){
         return publishDao.editPublish(publish)>0;
     }
+
+    public boolean addPublish(Publish publish){
+        return publishDao.addPublish(publish)>0;
+    }
 }

@@ -186,7 +186,7 @@ public class ReaderController {
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
         Date nbirth=new Date();
         try{
-            java.util.Date date=sdf.parse(birth);
+            java.util.Date date=sdf.parse(birth.toString());
             nbirth=date;
         }catch (ParseException e){
             e.printStackTrace();

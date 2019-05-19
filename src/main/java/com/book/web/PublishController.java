@@ -83,7 +83,7 @@ public class PublishController {
         }
     }
 
-    @RequestMapping("publish_delete.html")
+    @RequestMapping("/publish_delete.html")
     public String readerDelete(HttpServletRequest request, RedirectAttributes redirectAttributes){
         int publishId = Integer.parseInt(request.getParameter("publishId"));
         int res = publishService.deletePublish(publishId);
@@ -96,6 +96,32 @@ public class PublishController {
             return "redirect:/adminallpublish.html";
         }
 
+    }
+
+    @RequestMapping("/publish_add.html")
+    public ModelAndView publishAdd(HttpServletRequest request){
+        return new ModelAndView("admin_publish_add");
+    }
+
+
+    @RequestMapping("/publish_add_do.html")
+    public String addPblishDo(HttpServletRequest request, RedirectAttributes redirectAttributes) throws Exception{
+        Publish publish = new Publish();
+        publish.setPhone(new String(request.getParameter("phone").getBytes("ISO8859-1"),"UTF-8"));
+        publish.setEmail(new String(request.getParameter("email").getBytes("ISO8859-1"),"UTF-8"));
+        publish.setContacter(new String(request.getParameter("contacter").getBytes("ISO8859-1"),"UTF-8"));
+        publish.setAddress(new String(request.getParameter("address").getBytes("ISO8859-1"),"UTF-8"));
+        publish.setPublishName(new String(request.getParameter("publishName").getBytes("ISO8859-1"),"UTF-8"));
+        boolean succ = publishService.addPublish(publish);
+
+        ArrayList<Publish> publishes = publishService.getAllPublish();
+        if(succ){
+            redirectAttributes.addFlashAttribute("succ","出版社添加成功");
+        }
+        else{
+            redirectAttributes.addFlashAttribute("succ","出版社添加失败");
+        }
+        return "redirect:/adminallpublish.html";
     }
 
 }

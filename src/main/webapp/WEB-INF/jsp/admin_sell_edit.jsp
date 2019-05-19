@@ -1,36 +1,25 @@
 <%--
   Created by IntelliJ IDEA.
   User: 君行天下
-  Date: 2017/7/23
-  Time: 17:30
+  Date: 2017/7/31
+  Time: 8:09
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8"  %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>管理主页</title>
+    <title>编辑 ${publish.publishName}》 的信息</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <script src="js/jquery-3.2.1.js"></script>
     <script src="js/bootstrap.min.js" ></script>
     <style>
         body{
-            margin: 0;
-            padding: 0;
-            overflow: visible;
             background-color: rgb(240,242,245);
-        }
-        #newsa{
-            width:500px;
-            height: 200px;
-            position: fixed;
-            left: 35%;
-            top:30%;
         }
     </style>
 
 </head>
-<body background="img/281289-106.jpg">
+<body>
 <nav  style="position:fixed;z-index: 999;width: 100%;background-color: #fff" class="navbar navbar-default" role="navigation" >
     <div class="container-fluid">
         <div class="navbar-header" style="margin-left: 8%;margin-right: 1%">
@@ -75,7 +64,7 @@
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="adminallpublish.html">全部出版社</a></li>
+                        <li><a href="allreaders.html">全部出版社</a></li>
                         <li class="divider"></li>
                         <li><a href="publish_add.html">增加出版社</a></li>
                     </ul>
@@ -94,38 +83,50 @@
     </div>
 </nav>
 
+<div class="col-xs-6 col-md-offset-3" style="position: relative;top: 10%">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">编辑 《 ${sell.serialNumber}》 的信息</h3>
+        </div>
+        <div class="panel-body">
+            <form action="sell_edit_do.html?serialNumber=${sell.serialNumber}" method="post" id="selledit" >
+                <div class="input-group">
+                    <span class="input-group-addon">订单日期</span>
+                    <input type="text" class="form-control" name="date" id="date" value="${sell.date}" >
+                </div>
+                <div class="input-group">
+                    <span  class="input-group-addon">客户账号</span>
+                    <input type="text" class="form-control" name="readerId" id="readerId"  value="${sell.readerId}" >
+                </div>
+                <div class="input-group">
+                    <span  class="input-group-addon">付款</span>
+                    <input type="text" class="form-control" name="price" id="price"  value="${sell.price}" >
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon">书籍编号</span>
+                    <input type="text" class="form-control" name="bookId" id="bookId"  value="${sell.bookId}" >
+                </div>
+                <div class="input-group">
+                    <span  class="input-group-addon">订单状态</span>
+                    <input type="text" class="form-control" name="state" id="state"  value="${sell.state}" >
+                </div>
+                <input type="submit" value="确定" class="btn btn-success btn-sm" class="text-left">
+                <script>
+                    function mySubmit(flag){
+                        return flag;
+                    }
+                    $("#readeredit").submit(function () {
+                        if($("#date").val()==''||$("#readerId").val()==''||$("#price").val()==''||$("#bookId").val()==''||$("#state").val()==''){
+                            alert("请填入完整的订单信息！");
+                            return mySubmit(false);
+                        }
+                    })
+                </script>
+            </form>
+        </div>
+    </div>
 
-<!-- 模态框（Modal） -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                    &times;
-                </button>
-                <h4 class="modal-title" id="myModalLabel">
-                    温馨提示
-                </h4>
-            </div>
-            <div class="modal-body">
-                使用结束后请安全退出。
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">知道了
-                </button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
 </div>
-<c:if test="${!empty login}">
-    <script>
-        $(function () {
-            $("#myModal").modal({
-                show: true
-            })
-        })
-    </script>
-</c:if>
 
 </body>
 </html>
