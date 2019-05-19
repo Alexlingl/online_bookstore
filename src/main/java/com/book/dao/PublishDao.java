@@ -27,6 +27,7 @@ public class PublishDao {
     private final static String ALL_PUBLISH_SQL="SELECT * FROM publish_info";
     private final static String DELETE_PUBLISH_SQL="DELETE FROM publish_info where publish_id = ?";
     private final static String EDIT_PUBLISH_SQL="UPDATE publish_info set publish_name = ?, phone = ?, contacter = ?, email = ?, address = ? where publish_id = ?";
+    private final static String ADD_PIBLISH_SQL="INSERT INTO publish_info VALUES (NULL ,?,?,?,?,?)";
 
     public Publish getPublish(int publishId){
         final Publish publish=new Publish();
@@ -45,7 +46,6 @@ public class PublishDao {
 
     public ArrayList<Publish> getAllPublish(){
         final ArrayList<Publish> publishes=new ArrayList<Publish>();
-
         jdbcTemplate.query(ALL_PUBLISH_SQL, new RowCallbackHandler() {
             public void processRow(ResultSet resultSet) throws SQLException {
                 resultSet.beforeFirst();
@@ -78,4 +78,15 @@ public class PublishDao {
 
         return jdbcTemplate.update(EDIT_PUBLISH_SQL,new Object[]{publishName, phone, contacter, email, address, publishId});
     }
+
+    public int addPublish(Publish publish){
+        String publishName = publish.getPublishName();
+        String contacter = publish.getContacter();
+        String email = publish.getEmail();
+        String address = publish.getAddress();
+        String phone = publish.getPhone();
+
+        return jdbcTemplate.update(ADD_PIBLISH_SQL,new Object[]{publishName,phone,contacter,email,address});
+    }
+
 }
