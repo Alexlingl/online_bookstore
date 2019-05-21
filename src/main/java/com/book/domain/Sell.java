@@ -10,6 +10,7 @@ public class Sell implements Serializable {
     private int readerId;
     private BigDecimal price;
     private long bookId;
+    private int number;
     private int state;
 
     public void setSerialNumber(int serialNumber){
@@ -31,6 +32,8 @@ public class Sell implements Serializable {
     public void setBookId(long bookId){
         this.bookId = bookId;
     }
+
+    public void setNumber(int number){ this.number = number;}
 
     public void setState(int state){this.state = state;}
 
@@ -57,4 +60,7 @@ public class Sell implements Serializable {
     public int getState() {
         return state;
     }
+
+    public int getNumber(){return number;}
+
 }

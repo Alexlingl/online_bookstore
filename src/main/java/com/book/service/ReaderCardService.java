@@ -1,6 +1,7 @@
 package com.book.service;
 
 import com.book.dao.ReaderCardDao;
+import com.book.domain.ReaderCard;
 import com.book.domain.ReaderInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,10 @@ public class ReaderCardService {
     }
     public boolean updateName(int readerId,String name){
         return readerCardDao.updateName(readerId,name)>0;
+    }
+    public ReaderCard getReaderCard(int readerId){
+        System.out.println("readerCardService="+readerId);
+        return readerCardDao.findReaderByReaderId(readerId);
     }
 
 }

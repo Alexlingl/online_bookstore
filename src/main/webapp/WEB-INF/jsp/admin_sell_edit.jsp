@@ -99,12 +99,12 @@
                     <input type="text" class="form-control" name="readerId" id="readerId"  value="${sell.readerId}" >
                 </div>
                 <div class="input-group">
-                    <span  class="input-group-addon">付款</span>
-                    <input type="text" class="form-control" name="price" id="price"  value="${sell.price}" >
-                </div>
-                <div class="input-group">
                     <span class="input-group-addon">书籍编号</span>
                     <input type="text" class="form-control" name="bookId" id="bookId"  value="${sell.bookId}" >
+                </div>
+                <div class="input-group">
+                    <span  class="input-group-addon">数量</span>
+                    <input type="text" class="form-control" name="number" id="number"  value="${sell.number}" >
                 </div>
                 <div class="input-group">
                     <span  class="input-group-addon">订单状态</span>
@@ -116,7 +116,7 @@
                         return flag;
                     }
                     $("#readeredit").submit(function () {
-                        if($("#date").val()==''||$("#readerId").val()==''||$("#price").val()==''||$("#bookId").val()==''||$("#state").val()==''){
+                        if($("#date").val()==''||$("#readerId").val()==''||$("#number").val()==''||$("#bookId").val()==''||$("#state").val()==''){
                             alert("请填入完整的订单信息！");
                             return mySubmit(false);
                         }

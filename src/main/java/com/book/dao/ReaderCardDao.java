@@ -22,7 +22,6 @@ public class ReaderCardDao {
     private final static String ADD_READERCARD_SQL="INSERT INTO reader_card (reader_id,name) values ( ? , ?)";
     private final static String UPDATE_READER_NAME_SQL="UPDATE reader_card set name = ? where reader_id = ?";
 
-
     @Autowired
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;

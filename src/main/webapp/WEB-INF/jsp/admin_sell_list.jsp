@@ -114,8 +114,9 @@
                 <th>流水号</th>
                 <th>日期</th>
                 <th>客户账号</th>
-                <th>定价</th>
                 <th>书号</th>
+                <th>数量</th>
+                <th>付款金额</th>
                 <th>订单状态</th>
                 <th>编辑</th>
                 <th>删除</th>
@@ -127,8 +128,9 @@
                     <td><c:out value="${alog.serialNumber}"></c:out></td>
                     <td><c:out value="${alog.date}"></c:out></td>
                     <td><c:out value="${alog.readerId}"></c:out></td>
-                    <td><c:out value="${alog.price}"></c:out></td>
                     <td><c:out value="${alog.bookId}"></c:out></td>
+                    <td><c:out value="${alog.number}"></c:out></td>
+                    <td><c:out value="${alog.price}"></c:out></td>
                     <c:if test="${alog.state==0}">
                         <td>待发货</td>
                     </c:if>
