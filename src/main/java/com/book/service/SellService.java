@@ -1,9 +1,11 @@
 package com.book.service;
 
 import com.book.dao.SellDao;
+import com.book.domain.Book;
 import com.book.domain.Sell;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 
@@ -35,5 +37,17 @@ public class SellService {
     public boolean editSell(Sell sell){return sellDao.editSell(sell)>0;}
 
     public boolean deleteSell(int serialNumber){return sellDao.deleteSell(serialNumber)>0;}
+
+    @Transactional(rollbackFor = {Exception.class})
+    public boolean editAndAdd(BookService bookService,Book book,Sell sell){
+        boolean bookSucc = bookService.editBook(book);
+        System.out.println("书籍信息修改结果："+bookSucc);
+        boolean sellSucc = false;
+        if(bookSucc){
+//            int i=2/0;
+            sellSucc = addSell(sell);
+        }
+        return sellSucc;
+    }
 
 }

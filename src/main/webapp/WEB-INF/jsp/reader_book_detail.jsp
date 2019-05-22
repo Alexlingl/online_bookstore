@@ -42,7 +42,14 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="reader_info.html"><span class="glyphicon glyphicon-user"></span>&nbsp;${readercard.name}，已登录</a></li>
+                <li>
+                    <c:if test="${readercard.vipState==1}">
+                        <a href="reader_info.html"><span class="glyphicon glyphicon-user"></span>&nbsp;${readercard.name}(尊贵会员)，已登录</a>
+                    </c:if>
+                    <c:if test="${readercard.vipState==0}">
+                        <a href="reader_info.html"><span class="glyphicon glyphicon-user"></span>&nbsp;${readercard.name}(普通用户)，已登录</a>
+                    </c:if>
+                </li>
                 <li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span>&nbsp;退出</a></li>
             </ul>
         </div>
@@ -142,10 +149,10 @@
                 alert("库存不足，请重新输入购买数量");
                 return mySubmit(false);
             }
-            else if(val<=${detail.state}){
-                alert("购买成功");
-                return mySubmit(true);
-            }
+            <%--else if(val<=${detail.state}){--%>
+                <%--alert("购买成功");--%>
+                <%--return mySubmit(true);--%>
+            <%--}--%>
         })
     </script>
 </div>

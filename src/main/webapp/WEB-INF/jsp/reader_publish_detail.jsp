@@ -42,7 +42,14 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="reader_info.html"><span class="glyphicon glyphicon-user"></span>&nbsp;${readercard.name}，已登录</a></li>
+                <li>
+                    <c:if test="${readercard.vipState==1}">
+                        <a href="reader_info.html"><span class="glyphicon glyphicon-user"></span>&nbsp;${readercard.name}(尊贵会员)，已登录</a>
+                    </c:if>
+                    <c:if test="${readercard.vipState==0}">
+                        <a href="reader_info.html"><span class="glyphicon glyphicon-user"></span>&nbsp;${readercard.name}(普通用户)，已登录</a>
+                    </c:if>
+                </li>
                 <li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span>&nbsp;退出</a></li>
             </ul>
         </div>
@@ -79,7 +86,7 @@
                 </tbody>
             </table>
         </div>
-        <a class="btn btn-success btn-sm" href="reader_book_detail.html" role="button">返回</a>
+        <a class="btn btn-success btn-sm" href="reader_book_detail.html?searchWord=<c:out value="${searchWord}"></c:out>" role="button">返回</a>
     </div>
 
 </div>

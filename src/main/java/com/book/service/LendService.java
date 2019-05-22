@@ -4,6 +4,8 @@ import com.book.dao.LendDao;
 import com.book.domain.Lend;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.util.ArrayList;
 
@@ -29,6 +31,12 @@ public class LendService {
     }
     public ArrayList<Lend> myLendList(int readerId){
         return lendDao.myLendList(readerId);
+    }
+
+    @Transactional(rollbackFor = { Exception.class })
+    public void  doAccount() throws Exception {
+        lendDao.reduce();
+        lendDao.add();
     }
 
 }

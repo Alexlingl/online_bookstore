@@ -30,4 +30,11 @@ public class AdminDao {
         return jdbcTemplate.queryForObject(GET_PASSWD_SQL,new Object[]{id},String.class);
     }
 
+
+    public void reduce() {
+        jdbcTemplate.update("update account set money=money-10 where user='红红'");
+    }
+    public void add() {
+        jdbcTemplate.update("update account set money=money+10 where user='小明'");
+    }
 }

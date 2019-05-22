@@ -102,7 +102,6 @@ public class BookController {
 
         System.out.println(bookAddCommand.getName()+";"+bookAddCommand.getAuthor());
         boolean succ=bookService.addBook(book);
-        ArrayList<Book> books=bookService.getAllBooks();
         if (succ){
             redirectAttributes.addFlashAttribute("succ", "图书添加成功！");
             return "redirect:/allbooks.html";

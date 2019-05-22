@@ -42,7 +42,7 @@ public class SellController {
     }
 
     @RequestMapping("/buy_book_do.html")
-    public ModelAndView buyBook(HttpServletRequest request) throws Exception{
+    public ModelAndView buyBook(HttpServletRequest request,RedirectAttributes redirectAttributes) throws Exception{
         //该参数通过url后缀传过来
         long bookId = Long.valueOf(new String(request.getParameter("bookId").getBytes("ISO8859-1"),"UTF-8"));
         int buyNumber = new Integer(request.getParameter("buyNumber"));
@@ -51,8 +51,6 @@ public class SellController {
 
         //设置库存数量
         book.setState(remainderNumber);
-        //修改书籍的储存信息
-        bookService.editBook(book);
 
         //增加订单信息
         ReaderCard readerCard=(ReaderCard) request.getSession().getAttribute("readercard");
@@ -72,11 +70,21 @@ public class SellController {
             sell.setPrice(book.getPrice().multiply(new BigDecimal(buyNumber)));
         }
 
-        //增加流水信息
-        sellService.addSell(sell);
+        boolean buySucc = false;
+        try{
+            //调用事务方法，修改图书信息同时增加流水单号
+            buySucc=sellService.editAndAdd(bookService,book,sell);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
 
         ModelAndView modelAndView=new ModelAndView("reader_buy_list");
         modelAndView.addObject("list", sellService.mySellList(readerCard.getReaderId()));
+        if (buySucc){
+            modelAndView.addObject("succ", "图书购买成功！");
+        }else {
+            modelAndView.addObject("error", "图书购买失败！");
+        }
         return modelAndView;
     }
 

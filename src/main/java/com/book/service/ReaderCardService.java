@@ -20,6 +20,7 @@ public class ReaderCardService {
     public boolean updatePasswd(int readerId,String passwd){
         return readerCardDao.rePassword(readerId,passwd)>0;
     }
+    public boolean updateVipState(int readerId,int vipState){ return readerCardDao.updateVipState(readerId,vipState)>0;}
     public boolean updateName(int readerId,String name){
         return readerCardDao.updateName(readerId,name)>0;
     }

@@ -109,7 +109,6 @@ public class LoginController {
         if(passwd.equals(oldPasswd)){
             boolean succ=loginService.adminRePasswd(id,newPasswd);
             if (succ){
-
                 redirectAttributes.addFlashAttribute("succ", "密码修改成功！");
                 return "redirect:/admin_repasswd.html";
             }

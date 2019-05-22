@@ -8,13 +8,8 @@ public class ReaderCard implements Serializable{
     private String name;
     private String passwd;
     private int vipState;
-    private int cardState;
 
     public void setVipState(int vipState){this.vipState = vipState;}
-
-    public void setCardState(int cardState) {
-        this.cardState = cardState;
-    }
 
     public void setName(String name) {
         this.name = name;
@@ -30,10 +25,6 @@ public class ReaderCard implements Serializable{
 
     public int getReaderId() {
         return readerId;
-    }
-
-    public int getCardState() {
-        return cardState;
     }
 
     public int getVipState() { return vipState; }

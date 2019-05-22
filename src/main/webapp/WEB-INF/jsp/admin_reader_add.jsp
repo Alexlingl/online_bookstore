@@ -115,6 +115,10 @@
                     <span class="input-group-addon">电话</span>
                     <input type="text" class="form-control" name="telcode" id="telcode"  >
                 </div>
+                <div class="input-group">
+                    <span  class="input-group-addon">会员信息(0表示会员，1表示普通用户)</span>
+                    <input type="text" class="form-control" name="vipState" id="vipState" >
+                </div>
                 <input type="submit" value="添加" class="btn btn-success btn-sm" class="text-left">
                 <script>
                     function mySubmit(flag){

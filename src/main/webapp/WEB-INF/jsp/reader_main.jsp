@@ -5,10 +5,13 @@
   Time: 18:52
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>${readercard.name}的主页</title>
+    <c:if test="${detail.state>0}">
+        <title>${readercard.name}的主页</title>
+    </c:if>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <script src="js/jquery-3.2.1.js"></script>
     <script src="js/bootstrap.min.js" ></script>
@@ -49,7 +52,14 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="reader_info.html"><span class="glyphicon glyphicon-user"></span>&nbsp;${readercard.name}，已登录</a></li>
+                <li>
+                    <c:if test="${readercard.vipState==1}">
+                    <a href="reader_info.html"><span class="glyphicon glyphicon-user"></span>&nbsp;${readercard.name}(尊贵会员)，已登录</a>
+                    </c:if>
+                    <c:if test="${readercard.vipState==0}">
+                    <a href="reader_info.html"><span class="glyphicon glyphicon-user"></span>&nbsp;${readercard.name}(普通用户)，已登录</a>
+                    </c:if>
+                </li>
                 <li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span>&nbsp;退出</a></li>
             </ul>
         </div>

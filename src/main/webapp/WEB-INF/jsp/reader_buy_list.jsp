@@ -50,35 +50,38 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="reader_info.html"><span class="glyphicon glyphicon-user"></span>&nbsp;${readercard.name}，已登录</a></li>
+                <li>
+                    <c:if test="${readercard.vipState==1}">
+                        <a href="reader_info.html"><span class="glyphicon glyphicon-user"></span>&nbsp;${readercard.name}(尊贵会员)，已登录</a>
+                    </c:if>
+                    <c:if test="${readercard.vipState==0}">
+                        <a href="reader_info.html"><span class="glyphicon glyphicon-user"></span>&nbsp;${readercard.name}(普通用户)，已登录</a>
+                    </c:if>
+                </li>
                 <li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span>&nbsp;退出</a></li>
             </ul>
         </div>
     </div>
 </nav>
 
-
-
-<div style="position: relative;top: 10%">
-    <c:if test="${!empty succ}">
-        <div class="alert alert-success alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert"
-                    aria-hidden="true">
-                &times;
-            </button>
-                ${succ}
-        </div>
-    </c:if>
-    <c:if test="${!empty error}">
-        <div class="alert alert-danger alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert"
-                    aria-hidden="true">
-                &times;
-            </button>
-                ${error}
-        </div>
-    </c:if>
-</div>
+<c:if test="${!empty succ}">
+    <div class="alert alert-success alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert"
+                aria-hidden="true">
+            &times;
+        </button>
+            ${succ}
+    </div>
+</c:if>
+<c:if test="${!empty error}">
+    <div class="alert alert-danger alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert"
+                aria-hidden="true">
+            &times;
+        </button>
+            ${error}
+    </div>
+</c:if>
 
 <div class="panel panel-default" style="width: 90%;margin-left: 5%;margin-top: 5%">
     <div class="panel-heading">

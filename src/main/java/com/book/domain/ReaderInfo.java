@@ -59,4 +59,5 @@ public class ReaderInfo implements Serializable{
     public String getTelcode() {
         return telcode;
     }
+
 }

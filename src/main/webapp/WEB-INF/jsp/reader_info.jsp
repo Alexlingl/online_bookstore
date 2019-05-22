@@ -49,12 +49,28 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="reader_info.html"><span class="glyphicon glyphicon-user"></span>&nbsp;${readercard.name}，已登录</a></li>
+                <li>
+                    <c:if test="${readercard.vipState==1}">
+                        <a href="reader_info.html"><span class="glyphicon glyphicon-user"></span>&nbsp;${readercard.name}(尊贵会员)，已登录</a>
+                    </c:if>
+                    <c:if test="${readercard.vipState==0}">
+                        <a href="reader_info.html"><span class="glyphicon glyphicon-user"></span>&nbsp;${readercard.name}(普通用户)，已登录</a>
+                    </c:if>
+                </li>
                 <li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span>&nbsp;退出</a></li>
             </ul>
         </div>
     </div>
 </nav>
+<c:if test="${!empty error1}">
+    <div class="alert alert-success alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert"
+                aria-hidden="true">
+            &times;
+        </button>
+            ${error1}
+    </div>
+</c:if>
 <c:if test="${!empty succ}">
     <div class="alert alert-success alert-dismissable">
         <button type="button" class="close" data-dismiss="alert"
@@ -64,13 +80,13 @@
             ${succ}
     </div>
 </c:if>
-<c:if test="${!empty error}">
+<c:if test="${!empty error2}">
     <div class="alert alert-danger alert-dismissable">
         <button type="button" class="close" data-dismiss="alert"
                 aria-hidden="true">
             &times;
         </button>
-            ${error}
+            ${error2}
     </div>
 </c:if>
 <div class="col-xs-5 col-md-offset-3">
@@ -106,10 +122,22 @@
                     <th>电话</th>
                     <td>${readerinfo.telcode}</td>
                 </tr>
+                <tr>
+                    <th>会员信息</th>
+                    <td>
+                        <c:if test="${readercard.vipState==1}">
+                            尊贵会员
+                        </c:if>
+                        <c:if test="${readercard.vipState==0}">
+                            普通用户
+                        </c:if>
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </div>
-        <a class="btn btn-success btn-sm" href="reader_info_edit.html" role="button">修改</a>
+        <a class="btn btn-success btn-sm" href="reader_info_edit.html" role="button">修改信息</a>
+        <a class="btn btn-success btn-sm" href="get_vip_do.html" role="button">开通会员</a>
     </div>
 </div>
 

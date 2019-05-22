@@ -88,4 +88,12 @@ public class LendDao {
         return list;
 
     }
+
+    public void reduce() {
+        jdbcTemplate.update("update account set money=money-10 where user='红红'");
+    }
+    public void add() {
+//        int i=2/0;
+        jdbcTemplate.update("update account set money=money+10 where user='小明'");
+    }
 }

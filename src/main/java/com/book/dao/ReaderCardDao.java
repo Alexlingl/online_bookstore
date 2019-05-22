@@ -21,6 +21,7 @@ public class ReaderCardDao {
     private final static String RE_PASSWORD_SQL="UPDATE reader_card set passwd = ? where reader_id = ? ";
     private final static String ADD_READERCARD_SQL="INSERT INTO reader_card (reader_id,name) values ( ? , ?)";
     private final static String UPDATE_READER_NAME_SQL="UPDATE reader_card set name = ? where reader_id = ?";
+    private final static String UPDATE_VIPSTATE_SQL="UPDATE reader_card set vip_state = ?  WHERE reader_id = ?";
 
     @Autowired
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
@@ -44,7 +45,6 @@ public class ReaderCardDao {
                         readerCard.setReaderId(resultSet.getInt("reader_id"));
                         readerCard.setPasswd(resultSet.getString("passwd"));
                         readerCard.setName(resultSet.getString("name"));
-                        readerCard.setCardState(resultSet.getInt("card_state"));
                         readerCard.setVipState(resultSet.getInt("vip_state"));
                     }
                 });
@@ -66,5 +66,9 @@ public class ReaderCardDao {
 
     public int updateName(int readerId,String name){
         return jdbcTemplate.update(UPDATE_READER_NAME_SQL,new Object[]{name,readerId,});
+    }
+
+    public int updateVipState(int readerId,int vipState){
+        return jdbcTemplate.update(UPDATE_VIPSTATE_SQL,new Object[]{vipState,readerId});
     }
 }

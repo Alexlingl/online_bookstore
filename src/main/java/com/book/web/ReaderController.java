@@ -2,11 +2,14 @@ package com.book.web;
 
 import com.book.domain.ReaderCard;
 import com.book.domain.ReaderInfo;
-import com.book.service.LoginService;
-import com.book.service.ReaderCardService;
-import com.book.service.ReaderInfoService;
+import com.book.service.*;
+import org.aspectj.apache.bcel.generic.ACONST_NULL;
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.xml.XmlBeanFactory;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -24,8 +27,8 @@ public class ReaderController {
     @Autowired
     public void setReaderInfoService(ReaderInfoService readerInfoService) {
         this.readerInfoService = readerInfoService;
-    }   private LoginService loginService;
-
+    }
+    private LoginService loginService;
 
     @Autowired
     public void setLoginService(LoginService loginService) {
@@ -38,8 +41,28 @@ public class ReaderController {
         this.readerCardService = readerCardService;
     }
 
+    private LendService lendService;
+    @Autowired
+    public void setLendService(LendService lendService){
+        this.lendService = lendService;
+    }
+
+    private AccountService accountService;
+    @Autowired
+    public void setAccountService(AccountService accountService){ this.accountService = accountService; }
+
     @RequestMapping("allreaders.html")
     public ModelAndView allBooks(){
+//        lendService.doAccount();
+//        try{
+//            accountService.doAccount();
+////            lendService.doAccount();
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//        System.out.println("Done");
+
+//        accountService.doAccount();
         ArrayList<ReaderInfo> readers=readerInfoService.readerInfos();
         ModelAndView modelAndView=new ModelAndView("admin_readers");
         modelAndView.addObject("readers",readers);
@@ -71,17 +94,25 @@ public class ReaderController {
     @RequestMapping("reader_edit.html")
     public ModelAndView readerInfoEdit(HttpServletRequest request){
         int readerId= Integer.parseInt(request.getParameter("readerId"));
+        ReaderCard readerCard = readerCardService.getReaderCard(readerId);
+        int vipState = readerCard.getVipState();
+
         ReaderInfo readerInfo=readerInfoService.getReaderInfo(readerId);
         ModelAndView modelAndView=new ModelAndView("admin_reader_edit");
+        modelAndView.addObject("vipState",vipState);
         modelAndView.addObject("readerInfo",readerInfo);
         return modelAndView;
     }
 
     @RequestMapping("reader_edit_do.html")
-    public String readerInfoEditDo(HttpServletRequest request,String name,String sex,String birth,String address,String telcode,RedirectAttributes redirectAttributes) throws  Exception{
+    public String readerInfoEditDo(HttpServletRequest request,String birth,String telcode,RedirectAttributes redirectAttributes) throws  Exception{
+        int vipState = new Integer(request.getParameter("vipState"));
+        String name = new String(request.getParameter("name").getBytes("ISO8859-1"),"UTF-8");
         int readerId= Integer.parseInt(request.getParameter("id"));
         ReaderCard readerCard = loginService.findReaderCardByUserId(readerId);
         String oldName=readerCard.getName();
+
+        boolean succ1 = readerCardService.updateVipState(readerId,vipState);
         if(!oldName.equals(name)){
             boolean succo=readerCardService.updateName(readerId,name);
             SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
@@ -95,7 +126,7 @@ public class ReaderController {
             ReaderInfo readerInfo=new ReaderInfo();
             readerInfo.setAddress(new String(request.getParameter("address").getBytes("ISO8859-1"),"UTF-8"));
             readerInfo.setBirth(nbirth);
-            readerInfo.setName(new String(request.getParameter("name").getBytes("ISO8859-1"),"UTF-8"));
+            readerInfo.setName(name);
             readerInfo.setReaderId(readerId);
             readerInfo.setTelcode(telcode);
             readerInfo.setSex(new String(request.getParameter("sex").getBytes("ISO8859-1"),"UTF-8"));
@@ -183,6 +214,7 @@ public class ReaderController {
     //管理员功能--读者信息添加
     @RequestMapping("reader_add_do.html")
     public String readerInfoAddDo(HttpServletRequest request ,String name,String sex,String birth,String address,String telcode,int readerId,RedirectAttributes redirectAttributes)throws Exception{
+        int vipState = new Integer(request.getParameter("vipState"));
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
         Date nbirth=new Date();
         try{
@@ -191,7 +223,6 @@ public class ReaderController {
         }catch (ParseException e){
             e.printStackTrace();
         }
-
         ReaderInfo readerInfo=new ReaderInfo();
         readerInfo.setAddress(new String(request.getParameter("address").getBytes("ISO8859-1"),"UTF-8"));
         readerInfo.setBirth(nbirth);
@@ -200,11 +231,10 @@ public class ReaderController {
         readerInfo.setTelcode(telcode);
         readerInfo.setSex(new String(request.getParameter("sex").getBytes("ISO8859-1"),"UTF-8"));
 
-        System.out.println(name+";"+sex);
         boolean succ=readerInfoService.addReaderInfo(readerInfo);
         boolean succc=readerCardService.addReaderCard(readerInfo);
-        ArrayList<ReaderInfo> readers=readerInfoService.readerInfos();
-        if (succ&&succc){
+        boolean succc1=readerCardService.updateVipState(readerId,vipState);
+        if (succ&&succc&&succc1){
             redirectAttributes.addFlashAttribute("succ", "添加读者信息成功！");
             return "redirect:/allreaders.html";
         }else {
@@ -223,7 +253,8 @@ public class ReaderController {
 
     }
     @RequestMapping("reader_edit_do_r.html")
-    public String readerInfoEditDoReader(HttpServletRequest request,String name,String sex,String birth,String address,String telcode,RedirectAttributes redirectAttributes)throws Exception{
+    public String readerInfoEditDoReader(HttpServletRequest request,String birth,String telcode,RedirectAttributes redirectAttributes)throws Exception{
+        String name = new String(request.getParameter("name").getBytes("ISO8859-1"),"UTF-8");
         ReaderCard readerCard=(ReaderCard) request.getSession().getAttribute("readercard");
         if (!readerCard.getName().equals(name)){
             boolean succo=readerCardService.updateName(readerCard.getReaderId(),name);
@@ -239,7 +270,7 @@ public class ReaderController {
             ReaderInfo readerInfo=new ReaderInfo();
             readerInfo.setAddress(new String(request.getParameter("address").getBytes("ISO8859-1"),"UTF-8"));
             readerInfo.setBirth(nbirth);
-            readerInfo.setName(new String(request.getParameter("name").getBytes("ISO8859-1"),"UTF-8"));
+            readerInfo.setName(name);
             readerInfo.setReaderId(readerCard.getReaderId());
             readerInfo.setTelcode(telcode);
             readerInfo.setSex(new String(request.getParameter("sex").getBytes("ISO8859-1"),"UTF-8"));
@@ -254,9 +285,6 @@ public class ReaderController {
                 redirectAttributes.addFlashAttribute("error", "信息修改失败！");
                 return "redirect:/reader_info.html";
             }
-
-
-
         }else {
             SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
             Date nbirth=new Date();
@@ -270,7 +298,7 @@ public class ReaderController {
             ReaderInfo readerInfo=new ReaderInfo();
             readerInfo.setAddress(new String(request.getParameter("address").getBytes("ISO8859-1"),"UTF-8"));
             readerInfo.setBirth(nbirth);
-            readerInfo.setName(new String(request.getParameter("name").getBytes("ISO8859-1"),"UTF-8"));
+            readerInfo.setName(name);
             readerInfo.setReaderId(readerCard.getReaderId());
             readerInfo.setTelcode(telcode);
             readerInfo.setSex(new String(request.getParameter("sex").getBytes("ISO8859-1"),"UTF-8"));
@@ -286,5 +314,29 @@ public class ReaderController {
                 return "redirect:/reader_info.html";
             }
         }
+    }
+
+    @RequestMapping("get_vip_do.html")
+    public String getVipDo(HttpServletRequest request,RedirectAttributes redirectAttributes) {
+        ReaderCard readerCard=(ReaderCard) request.getSession().getAttribute("readercard");
+        int readerId = readerCard.getReaderId();
+        int oldVipState = readerCard.getVipState();
+        int newVipState = 1;
+
+        boolean succ=readerCardService.updateVipState(readerId,newVipState);
+
+        if(oldVipState==1){
+            redirectAttributes.addFlashAttribute("error1","您已经是尊贵的会员，无需再次开通^_^");
+        }
+        else if((oldVipState==0)&&(succ)){
+            //及时更换session信息
+            ReaderCard readerCardNew = loginService.findReaderCardByUserId(readerCard.getReaderId());
+            request.getSession().setAttribute("readercard", readerCardNew);
+            redirectAttributes.addFlashAttribute("succ","会员开通成功！");
+        }
+        else if((oldVipState==0)&&(!succ)){
+            redirectAttributes.addFlashAttribute("error2","会员开通失败！");
+        }
+        return "redirect:/reader_info.html";
     }
 }

@@ -52,6 +52,4 @@ public class LoginService {
         return adminDao.getPasswd(id);
     }
 
-
-
 }
