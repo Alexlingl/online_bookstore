@@ -1,5 +1,6 @@
 package com.book.web;
 
+import com.book.dao.RedisDao;
 import com.book.domain.ReaderCard;
 import com.book.domain.ReaderInfo;
 import com.book.service.*;
@@ -13,12 +14,14 @@ import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import redis.clients.jedis.Tuple;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Set;
 
 @Controller
 public class ReaderController {
@@ -41,28 +44,35 @@ public class ReaderController {
         this.readerCardService = readerCardService;
     }
 
-    private LendService lendService;
+    private RedisDao redisDao;
     @Autowired
-    public void setLendService(LendService lendService){
-        this.lendService = lendService;
-    }
-
-    private AccountService accountService;
-    @Autowired
-    public void setAccountService(AccountService accountService){ this.accountService = accountService; }
+    public void setRedisDao(RedisDao redisDao){ this.redisDao = redisDao; }
 
     @RequestMapping("allreaders.html")
     public ModelAndView allBooks(){
-//        lendService.doAccount();
-//        try{
-//            accountService.doAccount();
-////            lendService.doAccount();
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
-//        System.out.println("Done");
+//        redisDao.setSortedSet("new_score","article:00001",2);
+//        redisDao.setSortedSet("new_score","article:00002",1);
+//        redisDao.setSortedSet("new_score","article:00003",4);
+//        redisDao.setSortedSet("score","article:00005",2);
+//        redisDao.editSortedSet("score","article:00005",2);
+//        String result = (String)redisDao.get("test");
 
-//        accountService.doAccount();
+//        Set score1 = redisDao.getSortedSet("new_score",0,1);
+//        System.out.println(score1);
+//        for(Object i:score1){
+//            System.out.println(i+"   ");
+//        }
+
+//        String key = "new_score";
+//        String bookName = "新书";
+//        double buyNumber=2.0;
+//        if(redisDao.getPosition(key,"新书")==null){
+//            redisDao.addSortedSet(key,bookName,buyNumber);
+//        }else{
+//            redisDao.editSortedSet(key,bookName,buyNumber);
+//        }
+//        redisDao.editSortedSet("hotList","大雪中的山庄",2.0);
+
         ArrayList<ReaderInfo> readers=readerInfoService.readerInfos();
         ModelAndView modelAndView=new ModelAndView("admin_readers");
         modelAndView.addObject("readers",readers);

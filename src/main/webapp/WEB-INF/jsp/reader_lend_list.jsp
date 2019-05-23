@@ -1,10 +1,3 @@
-<%@ page import="com.book.domain.Book" %><%--
-  Created by IntelliJ IDEA.
-  User: 君行天下
-  Date: 2017/7/24
-  Time: 19:25
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -28,10 +21,16 @@
         </div>
         <div class="collapse navbar-collapse" id="example-navbar-collapse">
             <ul class="nav navbar-nav navbar-left">
-                <li >
-                    <a href="reader_querybook.html" >
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         图书查询
+                        <b class="caret"></b>
                     </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="reader_hot_list.html">热销榜</a></li>
+                        <li class="divider"></li>
+                        <li><a href="reader_querybook.html">搜索书籍</a></li>
+                    </ul>
                 </li>
                 <li>
                     <a href="reader_info.html" >

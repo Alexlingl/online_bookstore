@@ -1,5 +1,6 @@
 package com.book.web;
 
+import com.book.dao.RedisDao;
 import com.book.domain.Book;
 import com.book.domain.Publish;
 import com.book.service.BookService;
@@ -14,14 +15,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Set;
 
 @Controller
 public class BookController {
     private BookService bookService;
+    private RedisDao redisDao;
 
     @Autowired
-    public void setBookService(BookService bookService) {
+    public void setBookService(BookService bookService,RedisDao redisDao) {
         this.bookService = bookService;
+        this.redisDao = redisDao;
     }
 
     @RequestMapping("/querybook.html")
@@ -37,6 +41,27 @@ public class BookController {
             return new ModelAndView("admin_books","error","没有匹配的图书");
         }
     }
+
+    @RequestMapping("/reader_hot_list.html")
+    public ModelAndView readerHotList(){
+        ArrayList<Book> books = new ArrayList<>();
+        Set bookIdListAll = redisDao.getSortedSet(SellController.sortedSetName,0,-1);
+        System.out.println(bookIdListAll);
+        Set bookIdList = redisDao.getSortedSet(SellController.sortedSetName,0,9);
+        System.out.println(bookIdList);
+        for(Object id:bookIdList){
+            Book book = bookService.getOneBook(Long.parseLong(String.valueOf(id)));
+            books.add(book);
+        }
+        ArrayList<Book> reverseBooks=new ArrayList<>();
+        for(int i=books.size()-1;i>=0;i--){
+            reverseBooks.add(books.get(i));
+        }
+        ModelAndView modelAndView = new ModelAndView("reader_book_hotList");
+        modelAndView.addObject("books",reverseBooks);
+        return modelAndView;
+    }
+
     @RequestMapping("/reader_querybook.html")
     public ModelAndView readerQueryBook(){
        return new ModelAndView("reader_book_query");

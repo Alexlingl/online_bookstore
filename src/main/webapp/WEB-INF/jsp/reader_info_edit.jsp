@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -20,10 +19,16 @@
         </div>
         <div class="collapse navbar-collapse" id="example-navbar-collapse">
             <ul class="nav navbar-nav navbar-left">
-                <li class="active">
-                    <a href="reader_querybook.html" >
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         图书查询
+                        <b class="caret"></b>
                     </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="reader_hot_list.html">热销榜</a></li>
+                        <li class="divider"></li>
+                        <li><a href="reader_querybook.html">搜索书籍</a></li>
+                    </ul>
                 </li>
                 <li>
                     <a href="reader_info.html" >

@@ -1,5 +1,6 @@
 package com.book.web;
 
+import com.book.dao.RedisDao;
 import com.book.domain.Book;
 import com.book.domain.ReaderCard;
 import com.book.domain.Sell;
@@ -25,12 +26,15 @@ public class SellController {
     private SellService sellService;
     private BookService bookService;
     private ReaderCardService readerCardService;
+    private RedisDao redisDao;
+    public static final String sortedSetName = "hotListId";
 
     @Autowired
-    public void setSellService(SellService sellService,BookService bookService,ReaderCardService readerCardService) {
+    public void setSellService(SellService sellService,BookService bookService,ReaderCardService readerCardService,RedisDao redisDao) {
         this.sellService = sellService;
         this.bookService = bookService;
         this.readerCardService = readerCardService;
+        this.redisDao = redisDao;
     }
 
     @RequestMapping("/mybuy.html")
@@ -71,9 +75,17 @@ public class SellController {
         }
 
         boolean buySucc = false;
+        String bookIdStr = String.valueOf(bookId);
         try{
             //调用事务方法，修改图书信息同时增加流水单号
             buySucc=sellService.editAndAdd(bookService,book,sell);
+
+            //书籍购买成功，添加信息到redis
+            if(redisDao.getPosition(sortedSetName,bookIdStr)==null){
+                redisDao.addSortedSet(sortedSetName,bookIdStr,buyNumber);
+            }else{
+                redisDao.editSortedSet(sortedSetName,bookIdStr,buyNumber);
+            }
         }catch(Exception e){
             e.printStackTrace();
         }

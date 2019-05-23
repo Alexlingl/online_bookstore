@@ -31,27 +31,34 @@
     <!-- 第二步 开启事务注解 -->
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
-    <!--&lt;!&ndash; 第一步 配置事务管理器 &ndash;&gt;-->
-    <!--<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">-->
-        <!--&lt;!&ndash; 注入dataSource &ndash;&gt;-->
-        <!--<property name="dataSource" ref="dataSource"></property>-->
-    <!--</bean>-->
+    <!-- redis -->
+    <!-- jedis 配置 -->
+    <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig" >
+        <property name="maxIdle" value="300" />
+        <property name="maxWaitMillis" value="1000" />
+        <property name="testOnBorrow" value="true" />
+    </bean >
+    <!-- redis服务器中心 -->
+    <bean id="connectionFactory"  class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory" >
+        <property name="poolConfig" ref="poolConfig" />
+        <property name="port" value="6379" />
+        <property name="hostName" value="127.0.0.1" />
+        <property name="password" value="test123" />
+        <property name="timeout" value="3000" ></property>
+    </bean >
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate" >
+        <property name="connectionFactory" ref="connectionFactory" />
+        <property name="keySerializer" >
+            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+        </property>
+        <property name="valueSerializer" >
+            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+            <!--<bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer" />-->
+        </property>
+    </bean >
 
-    <!--&lt;!&ndash; 第二步 配置事务增强 &ndash;&gt;-->
-    <!--<tx:advice id="txadvice" transaction-manager="transactionManager">-->
-        <!--&lt;!&ndash; 做事务操作 &ndash;&gt;-->
-        <!--<tx:attributes>-->
-            <!--&lt;!&ndash; 设置进行事务操作的方法匹配规则  以do开头的方法&ndash;&gt;-->
-            <!--<tx:method name="do*" propagation="REQUIRED"/>-->
-        <!--</tx:attributes>-->
-    <!--</tx:advice>-->
-
-    <!--&lt;!&ndash; 第三步 配置切面 &ndash;&gt;-->
-    <!--<aop:config>-->
-        <!--&lt;!&ndash; 切入点 &ndash;&gt;-->
-        <!--<aop:pointcut expression="execution(* com.book.service.AccountService.*(..))" id="pointcut"/>-->
-        <!--&lt;!&ndash; 切面 &ndash;&gt;-->
-        <!--<aop:advisor advice-ref="txadvice" pointcut-ref="pointcut"/>-->
-    <!--</aop:config>-->
+    <!--<bean id="redisDao" class="com.book.dao.RedisDao" >-->
+        <!--<property name="redisTemplate" ref="redisTemplate" />-->
+    <!--</bean >-->
 
 </beans>
