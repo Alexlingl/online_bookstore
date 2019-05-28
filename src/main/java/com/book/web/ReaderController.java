@@ -101,6 +101,16 @@ public class ReaderController {
         modelAndView.addObject("readerinfo",readerInfo);
         return modelAndView;
     }
+
+    @RequestMapping("/admin_reader_info.html")
+    public ModelAndView toAdminReaderInfo(HttpServletRequest request) {
+        int readerId = Integer.parseInt(request.getParameter("readerId"));
+        ReaderInfo readerInfo=readerInfoService.getReaderInfo(readerId);
+        ModelAndView modelAndView=new ModelAndView("admin_reader_info");
+        modelAndView.addObject("readerinfo",readerInfo);
+        return modelAndView;
+    }
+
     @RequestMapping("reader_edit.html")
     public ModelAndView readerInfoEdit(HttpServletRequest request){
         int readerId= Integer.parseInt(request.getParameter("readerId"));

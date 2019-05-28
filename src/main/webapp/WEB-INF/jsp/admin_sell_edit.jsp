@@ -64,7 +64,7 @@
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="allreaders.html">全部出版社</a></li>
+                        <li><a href="adminallpublish.html">全部出版社</a></li>
                         <li class="divider"></li>
                         <li><a href="publish_add.html">增加出版社</a></li>
                     </ul>
@@ -76,7 +76,7 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="login.html"><span class="glyphicon glyphicon-user"></span>&nbsp;${admin.adminId}，已登录</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;${admin.adminId}，已登录</a></li>
                 <li><a href="logout.html"><span class="glyphicon glyphicon-log-in"></span>&nbsp;退出</a></li>
             </ul>
         </div>
@@ -86,7 +86,7 @@
 <div class="col-xs-6 col-md-offset-3" style="position: relative;top: 10%">
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h3 class="panel-title">编辑 《 ${sell.serialNumber}》 的信息</h3>
+            <h3 class="panel-title">编辑${sell.serialNumber}号订单的信息</h3>
         </div>
         <div class="panel-body">
             <form action="sell_edit_do.html?serialNumber=${sell.serialNumber}" method="post" id="selledit" >
@@ -107,9 +107,10 @@
                     <input type="text" class="form-control" name="number" id="number"  value="${sell.number}" >
                 </div>
                 <div class="input-group">
-                    <span  class="input-group-addon">订单状态</span>
+                    <span  class="input-group-addon">订单状态(0表示待发货,1表示待接收,2表示已接收)</span>
                     <input type="text" class="form-control" name="state" id="state"  value="${sell.state}" >
                 </div>
+                <a class="btn btn-success btn-sm" href="/selllist.html" role="button">返回</a>
                 <input type="submit" value="确定" class="btn btn-success btn-sm" class="text-left">
                 <script>
                     function mySubmit(flag){

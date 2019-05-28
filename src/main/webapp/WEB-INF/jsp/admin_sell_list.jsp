@@ -61,7 +61,7 @@
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="allreaders.html">全部出版社</a></li>
+                        <li><a href="adminallpublish.html">全部出版社</a></li>
                         <li class="divider"></li>
                         <li><a href="publish_add.html">增加出版社</a></li>
                     </ul>
@@ -73,7 +73,7 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="login.html"><span class="glyphicon glyphicon-user"></span>&nbsp;${admin.adminId}，已登录</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;${admin.adminId}，已登录</a></li>
                 <li><a href="logout.html"><span class="glyphicon glyphicon-log-in"></span>&nbsp;退出</a></li>
             </ul>
         </div>
@@ -117,6 +117,8 @@
                 <th>书号</th>
                 <th>数量</th>
                 <th>付款金额</th>
+                <th>用户信息</th>
+                <th>书籍信息</th>
                 <th>订单状态</th>
                 <th>编辑</th>
                 <th>删除</th>
@@ -131,6 +133,8 @@
                     <td><c:out value="${alog.bookId}"></c:out></td>
                     <td><c:out value="${alog.number}"></c:out></td>
                     <td><c:out value="${alog.price}"></c:out></td>
+                    <td><a href="admin_reader_info.html?readerId=<c:out value="${alog.readerId}"></c:out>"><button type="button" class="btn btn-info btn-xs">详情</button></a></td>
+                    <td><a href="bookdetail.html?bookId=<c:out value="${alog.bookId}"></c:out>"><button type="button" class="btn btn-info btn-xs">详情</button></a></td>
                     <c:if test="${alog.state==0}">
                         <td>待发货</td>
                     </c:if>

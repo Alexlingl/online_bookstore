@@ -19,6 +19,7 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 @Controller
@@ -41,7 +42,14 @@ public class SellController {
     public ModelAndView myBuy(HttpServletRequest request){
         ReaderCard readerCard=(ReaderCard) request.getSession().getAttribute("readercard");
         ModelAndView modelAndView=new ModelAndView("reader_buy_list");
-        modelAndView.addObject("list",sellService.mySellList(readerCard.getReaderId()));
+        ArrayList<Sell> sell_list = sellService.mySellList(readerCard.getReaderId());
+        //获取书籍名字
+        for(int i=0;i<sell_list.size();i++){
+            Sell sell = sell_list.get(i);
+            long bookId = sell.getBookId();
+            sell_list.get(i).setBookName(bookService.getBook(bookId).getName());
+        }
+        modelAndView.addObject("list",sell_list);
         return modelAndView;
     }
 
@@ -103,7 +111,14 @@ public class SellController {
     @RequestMapping("/selllist.html")
     public ModelAndView lendList(){
         ModelAndView modelAndView=new ModelAndView("admin_sell_list");
-        modelAndView.addObject("list",sellService.sellList());
+        ArrayList<Sell> sell_list = sellService.sellList();
+        //获取书籍名字
+        for(int i=0;i<sell_list.size();i++){
+            Sell sell = sell_list.get(i);
+            long bookId = sell.getBookId();
+            sell_list.get(i).setBookName(bookService.getBook(bookId).getName());
+        }
+        modelAndView.addObject("list",sell_list);
         return modelAndView;
     }
 

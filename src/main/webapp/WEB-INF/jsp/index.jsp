@@ -52,7 +52,7 @@
             window.location.href="login.html";
 </script>
 </c:if>
-<h2 style="text-align: center;font-family: 'Adobe 楷体 Std R';color: palevioletred">图 书 馆</h2>
+<h2 style="text-align: center;font-family: 'Adobe 楷体 Std R';color: palevioletred">小熊书屋</h2>
 <div style="float:right;" id="github_iframe"></div>
 <script>
     /**
@@ -298,7 +298,7 @@
                                 Cookies.remove('loginStatus');
                             }
                             $("#info").text("提示:登陆成功，跳转中...");
-                            window.location.href="/reader_main.html";
+                            window.location.href="/reader_hot_list.html";
                         }
                     }
                 });

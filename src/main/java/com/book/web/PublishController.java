@@ -29,12 +29,12 @@ public class PublishController {
     @RequestMapping("/readerpublishdetail.html")
     public ModelAndView readerPublishDetail(HttpServletRequest request) throws UnsupportedEncodingException{
         int publishId=Integer.parseInt(request.getParameter("publishId"));
-        String bookName=new String(request.getParameter("searchWord").getBytes("ISO8859-1"),"UTF-8");
-        System.out.println("BookName:"+bookName);
+//        String bookName=new String(request.getParameter("searchWord").getBytes("ISO8859-1"),"UTF-8");
+//        System.out.println("BookName:"+bookName);
         Publish publish=publishService.getPublish(publishId);
         ModelAndView modelAndView=new ModelAndView("reader_publish_detail");
         modelAndView.addObject("detail",publish);
-        modelAndView.addObject("searchWord",bookName);
+//        modelAndView.addObject("searchWord",bookName);
         return modelAndView;
     }
 

@@ -2,7 +2,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>我的借还</title>
+    <title>我的订单</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <script src="js/jquery-3.2.1.js"></script>
     <script src="js/bootstrap.min.js" ></script>
@@ -85,7 +85,7 @@
 <div class="panel panel-default" style="width: 90%;margin-left: 5%;margin-top: 5%">
     <div class="panel-heading">
         <h3 class="panel-title">
-            我的借还日志
+            我的订单
         </h3>
     </div>
     <div class="panel-body">
@@ -96,6 +96,7 @@
                 <th>日期</th>
                 <th>客户账号</th>
                 <th>书号</th>
+                <th>书名</th>
                 <th>数量</th>
                 <th>付款金额</th>
                 <th>订单状态</th>
@@ -108,6 +109,7 @@
                     <td><c:out value="${alog.date}"></c:out></td>
                     <td><c:out value="${alog.readerId}"></c:out></td>
                     <td><c:out value="${alog.bookId}"></c:out></td>
+                    <td><c:out value="${alog.bookName}"></c:out></td>
                     <td><c:out value="${alog.number}"></c:out></td>
                     <td><c:out value="${alog.price}"></c:out></td>
                     <c:if test="${alog.state==0}">

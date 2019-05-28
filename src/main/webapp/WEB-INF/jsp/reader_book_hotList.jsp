@@ -92,7 +92,7 @@
                     <td><c:out value="${book.name}"></c:out></td>
                     <td><c:out value="${book.author}"></c:out></td>
                     <td><c:out value="${book.translator}"></c:out></td>
-                    <td><a href="readerpublishdetail.html?publishId=<c:out value="${book.publishId}"></c:out>&searchWord=<c:out value="${book.name}"></c:out>"><button type="button" class="btn btn-success btn-xs">出版社信息</button></a></td>
+                    <td><a href="readerpublishdetail.html?publishId=<c:out value="${book.publishId}"></c:out>"><button type="button" class="btn btn-success btn-xs">出版社信息</button></a></td>
                     <td><c:out value="${book.isbn}"></c:out></td>
                     <td><c:out value="${book.price}"></c:out></td>
                     <td><c:out value="${book.vipPrice}"></c:out></td>

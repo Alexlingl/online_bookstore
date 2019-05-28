@@ -57,8 +57,4 @@
         </property>
     </bean >
 
-    <!--<bean id="redisDao" class="com.book.dao.RedisDao" >-->
-        <!--<property name="redisTemplate" ref="redisTemplate" />-->
-    <!--</bean >-->
-
 </beans>
