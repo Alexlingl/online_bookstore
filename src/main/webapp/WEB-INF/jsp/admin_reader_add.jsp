@@ -94,11 +94,19 @@
                 </div>
                 <div class="input-group">
                     <span  class="input-group-addon">性别</span>
-                    <input type="text" class="form-control" name="sex" id="sex" >
+                    <select type="text" class="form-control" name="sex" id="sex" >
+                        <option value="男">男</option>
+                        <option value="女">女</option>
+                    </select>
                 </div>
                 <div class="input-group">
                     <span class="input-group-addon">生日</span>
-                    <input type="text" class="form-control" name="birth" id="birth"  >
+                    <span class="input-group-addon">年</span>
+                    <input type="text" class="form-control" name="year" id="year">
+                    <span class="input-group-addon">月</span>
+                    <input type="text" class="form-control" name="month" id="month">
+                    <span class="input-group-addon">日</span>
+                    <input type="text" class="form-control" name="day" id="day">
                 </div>
                 <div class="input-group">
                     <span  class="input-group-addon">地址</span>
@@ -109,7 +117,7 @@
                     <input type="text" class="form-control" name="telcode" id="telcode"  >
                 </div>
                 <div class="input-group">
-                    <span  class="input-group-addon">会员信息(0表示会员，1表示普通用户)</span>
+                    <span  class="input-group-addon">会员信息(0表示普通用户，1表示尊贵会员)</span>
                     <input type="text" class="form-control" name="vipState" id="vipState" >
                 </div>
                 <input type="submit" value="添加" class="btn btn-success btn-sm" class="text-left">

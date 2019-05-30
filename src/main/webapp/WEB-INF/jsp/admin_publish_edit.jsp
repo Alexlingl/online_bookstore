@@ -108,6 +108,7 @@
                     <span  class="input-group-addon">地址</span>
                     <input type="text" class="form-control" name="address" id="address"  value="${publish.address}" >
                 </div>
+                <a class="btn btn-success btn-sm" href="/adminallpublish.html" role="button">返回</a>
                 <input type="submit" value="确定" class="btn btn-success btn-sm" class="text-left">
                 <script>
                     function mySubmit(flag){

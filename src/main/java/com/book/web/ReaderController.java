@@ -116,8 +116,10 @@ public class ReaderController {
         int readerId= Integer.parseInt(request.getParameter("readerId"));
         ReaderCard readerCard = readerCardService.getReaderCard(readerId);
         int vipState = readerCard.getVipState();
-
         ReaderInfo readerInfo=readerInfoService.getReaderInfo(readerId);
+        //提取并设置出年月日等信息
+        boolean succ = readerInfoService.parseDate(readerInfo);
+
         ModelAndView modelAndView=new ModelAndView("admin_reader_edit");
         modelAndView.addObject("vipState",vipState);
         modelAndView.addObject("readerInfo",readerInfo);
@@ -125,12 +127,18 @@ public class ReaderController {
     }
 
     @RequestMapping("reader_edit_do.html")
-    public String readerInfoEditDo(HttpServletRequest request,String birth,String telcode,RedirectAttributes redirectAttributes) throws  Exception{
+    public String readerInfoEditDo(HttpServletRequest request,String telcode,RedirectAttributes redirectAttributes) throws  Exception{
         int vipState = new Integer(request.getParameter("vipState"));
         String name = new String(request.getParameter("name").getBytes("ISO8859-1"),"UTF-8");
         int readerId= Integer.parseInt(request.getParameter("id"));
         ReaderCard readerCard = loginService.findReaderCardByUserId(readerId);
         String oldName=readerCard.getName();
+
+        String year = new String(request.getParameter("year").getBytes("ISO8859-1"),"UTF-8");
+        String month = new String(request.getParameter("month").getBytes("ISO8859-1"),"UTF-8");
+        String day = new String(request.getParameter("day").getBytes("ISO8859-1"),"UTF-8");
+        String birth = year+"-"+month+"-"+day;
+        System.out.println("readerController.birth="+birth);
 
         boolean succ1 = readerCardService.updateVipState(readerId,vipState);
         if(!oldName.equals(name)){
@@ -233,12 +241,17 @@ public class ReaderController {
 
     //管理员功能--读者信息添加
     @RequestMapping("reader_add_do.html")
-    public String readerInfoAddDo(HttpServletRequest request ,String name,String sex,String birth,String address,String telcode,int readerId,RedirectAttributes redirectAttributes)throws Exception{
+    public String readerInfoAddDo(HttpServletRequest request ,String telcode,int readerId,RedirectAttributes redirectAttributes)throws Exception{
         int vipState = new Integer(request.getParameter("vipState"));
+
+        String year = new String(request.getParameter("year").getBytes("ISO8859-1"),"UTF-8");
+        String month = new String(request.getParameter("month").getBytes("ISO8859-1"),"UTF-8");
+        String day = new String(request.getParameter("day").getBytes("ISO8859-1"),"UTF-8");
+        String birth = year+"-"+month+"-"+day;
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
         Date nbirth=new Date();
         try{
-            java.util.Date date=sdf.parse(birth.toString());
+            java.util.Date date=sdf.parse(birth);
             nbirth=date;
         }catch (ParseException e){
             e.printStackTrace();
@@ -262,20 +275,30 @@ public class ReaderController {
             return "redirect:/allreaders.html";
         }
     }
-//读者功能--读者信息修改
+
+    //读者功能--读者信息修改
     @RequestMapping("reader_info_edit.html")
     public ModelAndView readerInfoEditReader(HttpServletRequest request){
         ReaderCard readerCard=(ReaderCard) request.getSession().getAttribute("readercard");
         ReaderInfo readerInfo=readerInfoService.getReaderInfo(readerCard.getReaderId());
+        //提取并设置出年月日等信息
+        boolean succ = readerInfoService.parseDate(readerInfo);
+        System.out.println("controller.readerinfor.year="+readerInfo.getYear());
         ModelAndView modelAndView=new ModelAndView("reader_info_edit");
         modelAndView.addObject("readerinfo",readerInfo);
         return modelAndView;
 
     }
     @RequestMapping("reader_edit_do_r.html")
-    public String readerInfoEditDoReader(HttpServletRequest request,String birth,String telcode,RedirectAttributes redirectAttributes)throws Exception{
+    public String readerInfoEditDoReader(HttpServletRequest request,String telcode,RedirectAttributes redirectAttributes)throws Exception{
         String name = new String(request.getParameter("name").getBytes("ISO8859-1"),"UTF-8");
         ReaderCard readerCard=(ReaderCard) request.getSession().getAttribute("readercard");
+        String year = new String(request.getParameter("year").getBytes("ISO8859-1"),"UTF-8");
+        String month = new String(request.getParameter("month").getBytes("ISO8859-1"),"UTF-8");
+        String day = new String(request.getParameter("day").getBytes("ISO8859-1"),"UTF-8");
+        String birth = year+"-"+month+"-"+day;
+        System.out.println("readerController.birth="+birth);
+
         if (!readerCard.getName().equals(name)){
             boolean succo=readerCardService.updateName(readerCard.getReaderId(),name);
             SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
