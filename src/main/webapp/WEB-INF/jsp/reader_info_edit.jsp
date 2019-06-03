@@ -82,11 +82,11 @@
                 <div class="input-group">
                     <span  class="input-group-addon">性别</span>
                     <select type="text" class="form-control" name="sex" id="sex">
-                        <c:if test="${readerInfo.sex=='男'}">
+                        <c:if test="${readerinfo.sex=='男'}">
                             <option value="男" selected="selected">男</option>
                             <option value="女">女</option>
                         </c:if>
-                        <c:if test="${readerInfo.sex=='女'}">
+                        <c:if test="${readerinfo.sex=='女'}">
                             <option value="男">男</option>
                             <option value="女" selected="selected">女</option>
                         </c:if>

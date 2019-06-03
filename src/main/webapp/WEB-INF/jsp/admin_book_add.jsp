@@ -75,70 +75,76 @@
         </div>
     </div>
 </nav>
-
-<div style="position: relative;top: 10%;width: 80%;margin-left: 10%">
+<div class="col-xs-6 col-md-offset-3" style="position: relative;top: 10%">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">添加图书</h3>
+        </div>
+        <div class="panel-body">
             <form action="book_add_do.html" method="post" id="addbook" accept-charset="UTF-8">
-                <div class="form-group">
-                    <label for="name">图书名</label>
-                    <input type="text" class="form-control" name="name" id="name" placeholder="请输入书名">
+                <div class="input-group">
+                    <span  class="input-group-addon">书名</span>
+                    <input type="text" class="form-control" name="name" id="name">
                 </div>
-                <div class="form-group">
-                    <label for="author">作者</label>
-                    <input type="text" class="form-control" name="author" id="author"  placeholder="请输入作者名">
+                <div class="input-group">
+                    <span class="input-group-addon">作者</span>
+                    <input type="text" class="form-control" name="author" id="author" >
                 </div>
-                <div class="form-group">
-                    <label for="author">译者</label>
-                    <input type="text" class="form-control" name="translator" id="translator"  placeholder="请输入译者名">
+                <div class="input-group">
+                    <span class="input-group-addon">译者</span>
+                    <input type="text" class="form-control" name="translator" id="translator" >
                 </div>
-                <div class="form-group">
-                    <label for="publish">出版社</label>
-                    <input type="text" class="form-control"  name="publish" id="publish"  placeholder="请输入出版社">
+                <div class="input-group">
+                    <span  class="input-group-addon">出版社编号</span>
+                    <input type="text" class="form-control" name="publishId" id="publishId" >
                 </div>
-                <div class="form-group">
-                    <label for="isbn">ISBN</label>
-                    <input type="text" class="form-control" name="isbn" id="isbn"  placeholder="请输入ISBN">
+                <div class="input-group">
+                    <span class="input-group-addon">ISBN</span>
+                    <input type="text" class="form-control" name="isbn" id="isbn" >
                 </div>
-                <div class="form-group">
-                    <label for="introduction">简介</label>
-                    <textarea class="form-control" rows="3"  name="introduction" id="introduction" placeholder="请输入简介"></textarea>
+                <div class="input-group">
+                    <span  class="input-group-addon">简介</span>
+                    <input type="text" class="form-control" name="introduction" id="introduction" >
                 </div>
-                <div class="form-group">
-                    <label for="language">语言</label>
-                    <input type="text" class="form-control" name="language" id="language"  placeholder="请输入语言">
+                <div class="input-group">
+                    <span class="input-group-addon">语言</span>
+                    <input type="text" class="form-control" name="language" id="language" >
                 </div>
-                <div class="form-group">
-                    <label for="price">价格</label>
-                    <input type="text" class="form-control"  name="price"  id="price" placeholder="请输入价格">
+                <div class="input-group">
+                    <span  class="input-group-addon">普通价格</span>
+                    <input type="text" class="form-control" name="price"  id="price" >
                 </div>
-                <div class="form-group">
-                    <label for="price">会员特价</label>
-                    <input type="text" class="form-control"  name="vipprice"  id="vipprice" placeholder="请输入会员特价">
+                <div class="input-group">
+                    <span  class="input-group-addon">VIP特价</span>
+                    <input type="text" class="form-control" name="vipPrice"  id="vipPrice" >
                 </div>
-                <div class="form-group">
-                    <label for="pubdate">出版日期</label>
-                    <input type="text" class="form-control"  name="pubdate" id="pubdate"   placeholder="请输入出版日期">
+                <div class="input-group">
+                    <span class="input-group-addon">出版日期</span>
+                    <span class="input-group-addon">年</span>
+                    <input type="text" class="form-control" name="year" id="year" >
+                    <span class="input-group-addon">月</span>
+                    <input type="text" class="form-control" name="month" id="month" >
+                    <span class="input-group-addon">日</span>
+                    <input type="text" class="form-control" name="day" id="day" >
                 </div>
-                <div class="form-group">
-                    <label for="classId">分类号</label>
-                    <input type="text" class="form-control" name="classId" id="classId"  placeholder="请输入分类号">
+                <div class="input-group">
+                    <span  class="input-group-addon">分类号</span>
+                    <input type="text" class="form-control" name="classId" id="classId" >
                 </div>
-                <div class="form-group">
-                    <label for="pressmark">书架号</label>
-                    <input type="text" class="form-control"  name="pressmark" id="pressmark" placeholder="请输入书架号">
+                <div class="input-group">
+                    <span class="input-group-addon">书架号</span>
+                    <input type="text" class="form-control" name="pressmark" id="pressmark" >
                 </div>
-                <div class="form-group">
-                    <label for="state">库存数量</label>
-                    <input type="text" class="form-control"  name="state"  id="state"   placeholder="请输入库存数量">
+                <div class="input-group">
+                    <span  class="input-group-addon">库存数量</span>
+                    <input type="text" class="form-control" name="state"  id="state" >
                 </div>
-
-
-                <input type="submit" value="添加" class="btn btn-success btn-sm" class="text-left">
+                <input type="submit" value="确定" class="btn btn-success btn-sm" class="text-left">
                 <script>
                     function mySubmit(flag){
                         return flag;
                     }
                     $("#addbook").submit(function () {
-                        alert("名字:"+$("#name").val());
                         if($("#name").val()==''||$("#author").val()==''||$("#publish").val()==''||$("#isbn").val()==''||$("#introduction").val()==''||$("#language").val()==''||$("#price").val()==''||$("#pubdate").val()==''||$("#classId").val()==''||$("#pressmark").val()==''||$("#state").val()==''){
                             alert("请填入完整图书信息！");
                             return mySubmit(false);
@@ -146,9 +152,10 @@
                     })
                 </script>
             </form>
+        </div>
+    </div>
 
 </div>
-
 
 
 </body>

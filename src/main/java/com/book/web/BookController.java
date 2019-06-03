@@ -1,5 +1,6 @@
 package com.book.web;
 
+import com.book.dao.PublishDao;
 import com.book.dao.RedisDao;
 import com.book.domain.Book;
 import com.book.domain.Publish;
@@ -14,18 +15,23 @@ import javax.jws.WebParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Set;
 
 @Controller
 public class BookController {
     private BookService bookService;
     private RedisDao redisDao;
+    private PublishDao publishDao;
 
     @Autowired
-    public void setBookService(BookService bookService,RedisDao redisDao) {
+    public void setBookService(BookService bookService,RedisDao redisDao,PublishDao publishDao) {
         this.bookService = bookService;
         this.redisDao = redisDao;
+        this.publishDao = publishDao;
     }
 
     @RequestMapping("/querybook.html")
@@ -104,28 +110,39 @@ public class BookController {
 
     @RequestMapping("/book_add.html")
     public ModelAndView addBook(HttpServletRequest request){
-
         return new ModelAndView("admin_book_add");
-
     }
 
     @RequestMapping("/book_add_do.html")
-    public String addBookDo(HttpServletRequest request,BookAddCommand bookAddCommand, RedirectAttributes redirectAttributes) throws Exception{
+    public String addBookDo(HttpServletRequest request, BookAddCommand bookAddCommand,RedirectAttributes redirectAttributes) throws Exception{
         Book book = new Book();
         book.setBookId(0);
-        book.setPrice(bookAddCommand.getPrice());
-        book.setState(bookAddCommand.getState());
-        book.setPublish(new String(request.getParameter("publish").getBytes("ISO8859-1"),"UTF-8"));
-        book.setPubdate(bookAddCommand.getPubdate());
         book.setName(new String(request.getParameter("name").getBytes("ISO8859-1"),"UTF-8"));
-        book.setIsbn(bookAddCommand.getIsbn());
-        book.setClassId(bookAddCommand.getClassId());
         book.setAuthor(new String(request.getParameter("author").getBytes("ISO8859-1"),"UTF-8"));
+        book.setTranslator(new String(request.getParameter("translator").getBytes("ISO8859-1"),"UTF-8"));
+        book.setPublishId(new Integer(new String(request.getParameter("publishId").getBytes("ISO8859-1"),"UTF-8")));
+        book.setIsbn(new String(request.getParameter("isbn").getBytes("ISO8859-1"),"UTF-8"));
         book.setIntroduction(new String(request.getParameter("introduction").getBytes("ISO8859-1"),"UTF-8"));
-        book.setPressmark(bookAddCommand.getPressmark());
         book.setLanguage(new String(request.getParameter("language").getBytes("ISO8859-1"),"UTF-8"));
+        book.setPrice(new BigDecimal(new String(request.getParameter("price").getBytes("ISO8859-1"),"UTF-8")));
+        book.setVipPrice(new BigDecimal(new String(request.getParameter("vipPrice").getBytes("ISO8859-1"),"UTF-8")));
+        book.setPressmark(new Integer(new String(request.getParameter("pressmark").getBytes("ISO8859-1"),"UTF-8")));
 
-        System.out.println(bookAddCommand.getName()+";"+bookAddCommand.getAuthor());
+        String year = new String(request.getParameter("year").getBytes("ISO8859-1"),"UTF-8");
+        String month = new String(request.getParameter("month").getBytes("ISO8859-1"),"UTF-8");
+        String day = new String(request.getParameter("day").getBytes("ISO8859-1"),"UTF-8");
+        String pubdate = year+"-"+month+"-"+day;
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+        try{
+            java.util.Date date=sdf.parse(pubdate);
+            book.setPubdate(date);
+        }catch (ParseException e){
+            e.printStackTrace();
+        }
+
+        book.setClassId(new Integer(new String(request.getParameter("classId").getBytes("ISO8859-1"),"UTF-8")));
+        book.setState(new Integer(new String(request.getParameter("state").getBytes("ISO8859-1"),"UTF-8")));
+
         boolean succ=bookService.addBook(book);
         if (succ){
             redirectAttributes.addFlashAttribute("succ", "图书添加成功！");
@@ -141,29 +158,41 @@ public class BookController {
     public ModelAndView bookEdit(HttpServletRequest request){
         long bookId=Integer.parseInt(request.getParameter("bookId"));
         Book book=bookService.getBook(bookId);
+        bookService.parseDate(book);
         ModelAndView modelAndView=new ModelAndView("admin_book_edit");
         modelAndView.addObject("detail",book);
         return modelAndView;
     }
 
     @RequestMapping("/book_edit_do.html")
-    public String bookEditDo(HttpServletRequest request,BookAddCommand bookAddCommand,RedirectAttributes redirectAttributes)throws Exception{
-        long bookId=Integer.parseInt( request.getParameter("id"));
-
+    public String bookEditDo(HttpServletRequest request,RedirectAttributes redirectAttributes)throws Exception{
         Book book = new Book();
-        book.setBookId(bookId);
-        book.setPrice(bookAddCommand.getPrice());
-        book.setState(bookAddCommand.getState());
-        book.setPublish(new String(request.getParameter("publish").getBytes("ISO8859-1"),"UTF-8"));
-        book.setPubdate(bookAddCommand.getPubdate());
+        book.setBookId(new Integer(new String(request.getParameter("bookId"))));
         book.setName(new String(request.getParameter("name").getBytes("ISO8859-1"),"UTF-8"));
-        book.setIsbn(bookAddCommand.getIsbn());
-        book.setClassId(bookAddCommand.getClassId());
         book.setAuthor(new String(request.getParameter("author").getBytes("ISO8859-1"),"UTF-8"));
+        book.setTranslator(new String(request.getParameter("translator").getBytes("ISO8859-1"),"UTF-8"));
+        book.setPublishId(new Integer(new String(request.getParameter("publishId").getBytes("ISO8859-1"),"UTF-8")));
+        book.setIsbn(new String(request.getParameter("isbn").getBytes("ISO8859-1"),"UTF-8"));
         book.setIntroduction(new String(request.getParameter("introduction").getBytes("ISO8859-1"),"UTF-8"));
-        book.setPressmark(bookAddCommand.getPressmark());
         book.setLanguage(new String(request.getParameter("language").getBytes("ISO8859-1"),"UTF-8"));
+        book.setPrice(new BigDecimal(new String(request.getParameter("price").getBytes("ISO8859-1"),"UTF-8")));
+        book.setVipPrice(new BigDecimal(new String(request.getParameter("vipPrice").getBytes("ISO8859-1"),"UTF-8")));
+        book.setPressmark(new Integer(new String(request.getParameter("pressmark").getBytes("ISO8859-1"),"UTF-8")));
 
+        String year = new String(request.getParameter("year").getBytes("ISO8859-1"),"UTF-8");
+        String month = new String(request.getParameter("month").getBytes("ISO8859-1"),"UTF-8");
+        String day = new String(request.getParameter("day").getBytes("ISO8859-1"),"UTF-8");
+        String pubdate = year+"-"+month+"-"+day;
+
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+        try{
+            java.util.Date date=sdf.parse(pubdate);
+            book.setPubdate(date);
+        }catch (ParseException e){
+            e.printStackTrace();
+        }
+        book.setClassId(new Integer(new String(request.getParameter("classId").getBytes("ISO8859-1"),"UTF-8")));
+        book.setState(new Integer(new String(request.getParameter("state").getBytes("ISO8859-1"),"UTF-8")));
 
         boolean succ=bookService.editBook(book);
         if (succ){
@@ -189,7 +218,11 @@ public class BookController {
     public ModelAndView readerBookDetail(HttpServletRequest request){
         long bookId=Integer.parseInt(request.getParameter("bookId"));
         Book book=bookService.getBook(bookId);
+        int publishId = book.getPublishId();
+        Publish publish = publishDao.getPublish(publishId);
+        System.out.println("publishId="+publishId+" publishName="+publish.getPublishName());
         ModelAndView modelAndView=new ModelAndView("reader_book_detail");
+        modelAndView.addObject("publish",publish.getPublishName());
         modelAndView.addObject("detail",book);
         return modelAndView;
     }

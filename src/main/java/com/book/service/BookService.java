@@ -6,6 +6,7 @@ import com.book.domain.Publish;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 @Service
@@ -48,5 +49,20 @@ public class BookService {
     public boolean editBook(Book book){
         return bookDao.editBook(book)>0;
     }
+    //从date类型的数据中提取出年月日
+    public boolean parseDate(Book book){
+        //从birth字段中单独提取出年月日的信息
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+        String dateStr = sdf.format(book.getPubdate());
+        String[] dateList = dateStr.split("-");
+        String year = dateList[0];
+        String month = dateList[1];
+        String day = dateList[2];
+//        System.out.println(year+" "+month+" "+day);
+        book.setYear(year);
+        book.setMonth(month);
+        book.setDay(day);
+        return true;
+    };
 
 }

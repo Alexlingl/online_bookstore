@@ -82,7 +82,7 @@
             <h3 class="panel-title">编辑《 ${detail.name}》</h3>
         </div>
         <div class="panel-body">
-            <form action="book_edit_do.html?id=${detail.bookId}" method="post" id="addbook" >
+            <form action="book_edit_do.html?bookId=${detail.bookId}" method="post" id="addbook" >
 
                 <div class="input-group">
                     <span  class="input-group-addon">书名</span>
@@ -93,8 +93,12 @@
                     <input type="text" class="form-control" name="author" id="author" value="${detail.author}" >
                 </div>
                 <div class="input-group">
-                    <span  class="input-group-addon">出版社</span>
-                    <input type="text" class="form-control" name="publish" id="publish"  value="${detail.publish}" >
+                    <span class="input-group-addon">译者</span>
+                    <input type="text" class="form-control" name="translator" id="translator" value="${detail.translator}" >
+                </div>
+                <div class="input-group">
+                    <span  class="input-group-addon">出版社编号</span>
+                    <input type="text" class="form-control" name="publishId" id="publishId"  value="${detail.publishId}" >
                 </div>
                 <div class="input-group">
                     <span class="input-group-addon">ISBN</span>
@@ -113,8 +117,17 @@
                     <input type="text" class="form-control" name="price"  id="price" value="${detail.price}">
                 </div>
                 <div class="input-group">
+                    <span  class="input-group-addon">VIP特价</span>
+                    <input type="text" class="form-control" name="vipPrice"  id="vipPrice" value="${detail.vipPrice}">
+                </div>
+                <div class="input-group">
                     <span class="input-group-addon">出版日期</span>
-                    <input type="text" class="form-control" name="pubdate" id="pubdate" value="${detail.pubdate}">
+                    <span class="input-group-addon">年</span>
+                    <input type="text" class="form-control" name="year" id="year"  value="${detail.year}" >
+                    <span class="input-group-addon">月</span>
+                    <input type="text" class="form-control" name="month" id="month"  value="${detail.month}" >
+                    <span class="input-group-addon">日</span>
+                    <input type="text" class="form-control" name="day" id="day"  value="${detail.day}" >
                 </div>
                 <div class="input-group">
                     <span  class="input-group-addon">分类号</span>
