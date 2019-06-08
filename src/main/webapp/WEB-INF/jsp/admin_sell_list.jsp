@@ -80,6 +80,24 @@
     </div>
 </nav>
 <div style="position: relative;top: 15%">
+    <c:if test="${!empty error_bookId}">
+        <div class="alert alert-danger alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert"
+                    aria-hidden="true">
+                &times;
+            </button>
+                ${error_bookId}
+        </div>
+    </c:if>
+    <c:if test="${!empty error_bookNumber}">
+        <div class="alert alert-danger alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert"
+                    aria-hidden="true">
+                &times;
+            </button>
+                ${error_bookNumber}
+        </div>
+    </c:if>
 <c:if test="${!empty succ}">
     <div class="alert alert-success alert-dismissable">
         <button type="button" class="close" data-dismiss="alert"
@@ -134,7 +152,7 @@
                     <td><c:out value="${alog.number}"></c:out></td>
                     <td><c:out value="${alog.price}"></c:out></td>
                     <td><a href="admin_reader_info.html?readerId=<c:out value="${alog.readerId}"></c:out>"><button type="button" class="btn btn-info btn-xs">详情</button></a></td>
-                    <td><a href="bookdetail.html?bookId=<c:out value="${alog.bookId}"></c:out>"><button type="button" class="btn btn-info btn-xs">详情</button></a></td>
+                    <td><a href="admin_book_detail.html?bookId=<c:out value="${alog.bookId}"></c:out>"><button type="button" class="btn btn-info btn-xs">详情</button></a></td>
                     <c:if test="${alog.state==0}">
                         <td>待发货</td>
                     </c:if>

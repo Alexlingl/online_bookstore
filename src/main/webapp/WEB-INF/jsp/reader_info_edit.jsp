@@ -73,7 +73,7 @@
 
                 <div class="input-group">
                     <span  class="input-group-addon">读者证号</span>
-                    <input type="text" readonly="readonly" class="form-control" name="readerId" id="readerId" value="${readerinfo.readerId}">
+                    <input type="text" readonly="readonly" class="form-control" name="readerId" id="readerId" value="${readerinfo.readerId}" >
                 </div>
                 <div class="input-group">
                     <span class="input-group-addon">姓名</span>
@@ -95,11 +95,11 @@
                 <div class="input-group">
                     <span class="input-group-addon">生日</span>
                     <span class="input-group-addon">年</span>
-                    <input type="text" class="form-control" name="year" id="year"  value="${readerinfo.year}" >
+                    <input type="text" class="form-control" name="year" id="year"  value="${readerinfo.year}" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " maxlength="4">
                     <span class="input-group-addon">月</span>
-                    <input type="text" class="form-control" name="month" id="month"  value="${readerinfo.month}" >
+                    <input type="text" class="form-control" name="month" id="month"  value="${readerinfo.month}" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " maxlength="2">
                     <span class="input-group-addon">日</span>
-                    <input type="text" class="form-control" name="day" id="day"  value="${readerinfo.day}" >
+                    <input type="text" class="form-control" name="day" id="day"  value="${readerinfo.day}" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " maxlength="2">
                 </div>
 
                 <div class="input-group">
@@ -108,7 +108,7 @@
                 </div>
                 <div class="input-group">
                     <span  class="input-group-addon">电话</span>
-                    <input type="text" class="form-control" name="telcode" id="telcode"  value="${readerinfo.telcode}" >
+                    <input type="text" class="form-control" name="telcode" id="telcode"  value="${readerinfo.telcode}" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " maxlength="11">
                 </div>
                 <br/>
                 <a class="btn btn-success btn-sm" href="/reader_info.html" role="button">返回</a>

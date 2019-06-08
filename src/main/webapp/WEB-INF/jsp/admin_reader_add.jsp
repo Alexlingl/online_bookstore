@@ -85,12 +85,12 @@
             <form action="reader_add_do.html" method="post" id="readeredit" >
                 <div class="input-group">
                     <span  class="input-group-addon">读者证号</span>
-                    <input  type="text" class="form-control" name="readerId" id="readerId" >
+                    <input  type="text" class="form-control" name="readerId" id="readerId" onkeyup="this.value=this.value.replace(/[^\d]/g,'') ">
                 </div>
 
                 <div class="input-group">
                     <span class="input-group-addon">姓名</span>
-                    <input type="text" class="form-control" name="name" id="name"  >
+                    <input type="text" class="form-control" name="name" id="name" onkeyup="this.value=this.value.replace(/[^\u4e00-\u9fa5a-zA-Z0-9\w]/g,'')">
                 </div>
                 <div class="input-group">
                     <span  class="input-group-addon">性别</span>
@@ -102,23 +102,23 @@
                 <div class="input-group">
                     <span class="input-group-addon">生日</span>
                     <span class="input-group-addon">年</span>
-                    <input type="text" class="form-control" name="year" id="year">
+                    <input type="text" class="form-control" name="year" id="year" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " maxlength="4">
                     <span class="input-group-addon">月</span>
-                    <input type="text" class="form-control" name="month" id="month">
+                    <input type="text" class="form-control" name="month" id="month" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " maxlength="2">
                     <span class="input-group-addon">日</span>
-                    <input type="text" class="form-control" name="day" id="day">
+                    <input type="text" class="form-control" name="day" id="day" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " maxlength="2">
                 </div>
                 <div class="input-group">
                     <span  class="input-group-addon">地址</span>
-                    <input type="text" class="form-control" name="address" id="address"  >
+                    <input type="text" class="form-control" name="address" id="address" onkeyup="this.value=this.value.replace(/[^\u4e00-\u9fa5a-zA-Z0-9\w]/g,'')">
                 </div>
                 <div class="input-group">
                     <span class="input-group-addon">电话</span>
-                    <input type="text" class="form-control" name="telcode" id="telcode"  >
+                    <input type="text" class="form-control" name="telcode" id="telcode" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " maxlength="11">
                 </div>
                 <div class="input-group">
                     <span  class="input-group-addon">会员信息(0表示普通用户，1表示尊贵会员)</span>
-                    <input type="text" class="form-control" name="vipState" id="vipState" >
+                    <input type="text" class="form-control" name="vipState" id="vipState" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " maxlength="1">
                 </div>
                 <input type="submit" value="添加" class="btn btn-success btn-sm" class="text-left">
                 <script>

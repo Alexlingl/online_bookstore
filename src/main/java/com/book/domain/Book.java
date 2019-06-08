@@ -18,7 +18,7 @@ public class Book implements Serializable{
     //bead类的语法格式，虽然数据库中是vip_price，但是生成bean类后会变成vipPrice
     private BigDecimal vipPrice;
     private Date pubdate;
-    private int classId;
+    private String classId;
     private int pressmark;
     private int state;
     private String year;
@@ -34,7 +34,7 @@ public class Book implements Serializable{
     public void setTranslator(String translator) {
         this.translator = translator;
     }
-    public void setClassId(int classId) {
+    public void setClassId(String classId) {
         this.classId = classId;
     }
     public void setLanguage(String language) {
@@ -83,7 +83,7 @@ public class Book implements Serializable{
     public long getBookId() {
         return bookId;
     }
-    public int getClassId() {
+    public String getClassId() {
         return classId;
     }
     public Date getPubdate() {

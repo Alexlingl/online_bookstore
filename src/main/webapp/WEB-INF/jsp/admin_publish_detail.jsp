@@ -13,6 +13,7 @@
     </style>
 </head>
 <body>
+
 <nav  style="position:fixed;z-index: 999;width: 100%;background-color: #fff" class="navbar navbar-default" role="navigation" >
     <div class="container-fluid">
         <div class="navbar-header" style="margin-left: 8%;margin-right: 1%">
@@ -76,7 +77,7 @@
     </div>
 </nav>
 
-<div class="col-xs-6 col-md-offset-3" style="position: relative;top: 3%">
+<div class="col-xs-6 col-md-offset-3" style="position: relative;top: 10%">
     <div class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title">《 ${detail.publishName}》</h3>

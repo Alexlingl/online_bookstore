@@ -1,7 +1,8 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>《 ${detail.name}》</title>
+    <title>《 ${detail.name}》的详细信息</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <script src="js/jquery-3.2.1.js"></script>
     <script src="js/bootstrap.min.js" ></script>
@@ -76,7 +77,7 @@
     </div>
 </nav>
 
-<div class="col-xs-6 col-md-offset-3" style="position: relative;top: 10%">
+<div class="col-xs-6 col-md-offset-3" style="position: relative;top: 3%">
     <div class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title">《 ${detail.name}》</h3>
@@ -92,8 +93,12 @@
                     <td>${detail.author}</td>
                 </tr>
                 <tr>
+                    <th>译者</th>
+                    <td>${detail.translator}</td>
+                </tr>
+                <tr>
                     <th>出版社</th>
-                    <td>${detail.publish}</td>
+                    <td>${publish}</td>
                 </tr>
                 <tr>
                     <th>ISBN</th>
@@ -112,25 +117,32 @@
                     <td>${detail.price}</td>
                 </tr>
                 <tr>
+                    <th>会员特价</th>
+                    <td>${detail.vipPrice}</td>
+                </tr>
+                <tr>
                     <th>出版日期</th>
                     <td>${detail.pubdate}</td>
                 </tr>
                 <tr>
-                    <th>分类号</th>
-                    <td>${detail.classId}</td>
+                    <th>所属类别</th>
+                    <td>${className}</td>
                 </tr>
                 <tr>
                     <th>书架号</th>
                     <td>${detail.pressmark}</td>
                 </tr>
                 <tr>
-                    <th>库存数量</th>
-                    <td>${detail.state}</td>
+                    <th>状态</th>
+                    <c:if test="${detail.state>0}">
+                        <td>库存剩余：${detail.state}本</td>
+                    </c:if>
+                    <c:if test="${detail.state==0}">
+                        <td>已售完</td>
+                    </c:if>
                 </tr>
-                </tbody>
             </table>
         </div>
-        <a class="btn btn-success btn-sm" href="/selllist.html" role="button">返回</a>
     </div>
 </div>
 

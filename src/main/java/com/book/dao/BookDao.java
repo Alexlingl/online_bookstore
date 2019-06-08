@@ -49,7 +49,7 @@ public class BookDao {
                     book.setAuthor(resultSet.getString("author"));
                     book.setTranslator(resultSet.getString("translator"));
                     book.setBookId(resultSet.getLong("book_id"));
-                    book.setClassId(resultSet.getInt("class_id"));
+                    book.setClassId(resultSet.getString("class_id"));
                     book.setIntroduction(resultSet.getString("introduction"));
                     book.setIsbn(resultSet.getString("isbn"));
                     book.setLanguage(resultSet.getString("language"));
@@ -83,7 +83,7 @@ public class BookDao {
                         book.setPubdate(resultSet.getDate("pubdate"));
                         book.setName(resultSet.getString("name"));
                         book.setIsbn(resultSet.getString("isbn"));
-                        book.setClassId(resultSet.getInt("class_id"));
+                        book.setClassId(resultSet.getString("class_id"));
                         book.setBookId(resultSet.getLong("book_id"));
                         book.setAuthor(resultSet.getString("author"));
                         book.setTranslator(resultSet.getString("translator"));
@@ -114,7 +114,7 @@ public class BookDao {
         BigDecimal price=book.getPrice();
         BigDecimal vipPrice=book.getVipPrice();
         Date pubdate=book.getPubdate();
-        int classId=book.getClassId();
+        String classId=book.getClassId();
         int pressmark=book.getPressmark();
         int state=book.getState();
 
@@ -135,7 +135,7 @@ public class BookDao {
                 book.setLanguage(resultSet.getString("language"));
                 book.setPrice(resultSet.getBigDecimal("price"));
                 book.setVipPrice(resultSet.getBigDecimal("vip_price"));
-                book.setClassId(resultSet.getInt("class_id"));
+                book.setClassId(resultSet.getString("class_id"));
                 book.setPubdate(resultSet.getDate("pubdate"));
                 book.setPressmark(resultSet.getInt("pressmark"));
                 book.setState(resultSet.getInt("state"));
@@ -156,7 +156,7 @@ public class BookDao {
         BigDecimal price=book.getPrice();
         BigDecimal vipPrice=book.getVipPrice();
         Date pubdate=book.getPubdate();
-        int classId=book.getClassId();
+        String classId=book.getClassId();
         int pressmark=book.getPressmark();
         int state=book.getState();
 

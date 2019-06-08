@@ -3,8 +3,11 @@ package com.book.web;
 import com.book.dao.PublishDao;
 import com.book.dao.RedisDao;
 import com.book.domain.Book;
+import com.book.domain.ClassInfo;
 import com.book.domain.Publish;
 import com.book.service.BookService;
+import com.book.service.ClassService;
+import com.book.service.PublishService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,12 +29,16 @@ public class BookController {
     private BookService bookService;
     private RedisDao redisDao;
     private PublishDao publishDao;
+    private ClassService classService;
+    private PublishService publishService;
 
     @Autowired
-    public void setBookService(BookService bookService,RedisDao redisDao,PublishDao publishDao) {
+    public void setBookService(BookService bookService,RedisDao redisDao,PublishDao publishDao,ClassService classService,PublishService publishService) {
         this.bookService = bookService;
         this.redisDao = redisDao;
         this.publishDao = publishDao;
+        this.classService = classService;
+        this.publishService = publishService;
     }
 
     @RequestMapping("/querybook.html")
@@ -120,7 +127,8 @@ public class BookController {
         book.setName(new String(request.getParameter("name").getBytes("ISO8859-1"),"UTF-8"));
         book.setAuthor(new String(request.getParameter("author").getBytes("ISO8859-1"),"UTF-8"));
         book.setTranslator(new String(request.getParameter("translator").getBytes("ISO8859-1"),"UTF-8"));
-        book.setPublishId(new Integer(new String(request.getParameter("publishId").getBytes("ISO8859-1"),"UTF-8")));
+        int publishId = new Integer(new String(request.getParameter("publishId").getBytes("ISO8859-1"),"UTF-8"));
+        book.setPublishId(publishId);
         book.setIsbn(new String(request.getParameter("isbn").getBytes("ISO8859-1"),"UTF-8"));
         book.setIntroduction(new String(request.getParameter("introduction").getBytes("ISO8859-1"),"UTF-8"));
         book.setLanguage(new String(request.getParameter("language").getBytes("ISO8859-1"),"UTF-8"));
@@ -140,18 +148,27 @@ public class BookController {
             e.printStackTrace();
         }
 
-        book.setClassId(new Integer(new String(request.getParameter("classId").getBytes("ISO8859-1"),"UTF-8")));
+        String classId =new String(request.getParameter("classId").getBytes("ISO8859-1"),"UTF-8");
+        book.setClassId(classId);
         book.setState(new Integer(new String(request.getParameter("state").getBytes("ISO8859-1"),"UTF-8")));
 
-        boolean succ=bookService.addBook(book);
-        if (succ){
-            redirectAttributes.addFlashAttribute("succ", "图书添加成功！");
-            return "redirect:/allbooks.html";
+        if(classService.querySpecifyClass(classId).getName()==null){
+            redirectAttributes.addFlashAttribute("error_class","图书添加失败，分类号不存在");
         }
-        else {
-            redirectAttributes.addFlashAttribute("succ", "图书添加失败！");
-            return "redirect:/allbooks.html";
+        else if(publishService.getPublish(publishId).getPublishName()==null){
+            redirectAttributes.addFlashAttribute("error_publish","图书添加失败，出版社编号不存在");
         }
+        else{
+            //分类号和出版社编号无误
+            boolean succ=bookService.addBook(book);
+            if (succ){
+                redirectAttributes.addFlashAttribute("succ", "图书添加成功！");
+            }
+            else {
+                redirectAttributes.addFlashAttribute("succ", "图书添加失败！");
+            }
+        }
+        return "redirect:/allbooks.html";
     }
 
     @RequestMapping("/updatebook.html")
@@ -171,7 +188,8 @@ public class BookController {
         book.setName(new String(request.getParameter("name").getBytes("ISO8859-1"),"UTF-8"));
         book.setAuthor(new String(request.getParameter("author").getBytes("ISO8859-1"),"UTF-8"));
         book.setTranslator(new String(request.getParameter("translator").getBytes("ISO8859-1"),"UTF-8"));
-        book.setPublishId(new Integer(new String(request.getParameter("publishId").getBytes("ISO8859-1"),"UTF-8")));
+        int publishId = new Integer(new String(request.getParameter("publishId").getBytes("ISO8859-1"),"UTF-8"));
+        book.setPublishId(publishId);
         book.setIsbn(new String(request.getParameter("isbn").getBytes("ISO8859-1"),"UTF-8"));
         book.setIntroduction(new String(request.getParameter("introduction").getBytes("ISO8859-1"),"UTF-8"));
         book.setLanguage(new String(request.getParameter("language").getBytes("ISO8859-1"),"UTF-8"));
@@ -191,25 +209,48 @@ public class BookController {
         }catch (ParseException e){
             e.printStackTrace();
         }
-        book.setClassId(new Integer(new String(request.getParameter("classId").getBytes("ISO8859-1"),"UTF-8")));
+        String classId =new String(request.getParameter("classId").getBytes("ISO8859-1"),"UTF-8");
+        book.setClassId(classId);
         book.setState(new Integer(new String(request.getParameter("state").getBytes("ISO8859-1"),"UTF-8")));
 
-        boolean succ=bookService.editBook(book);
-        if (succ){
-            redirectAttributes.addFlashAttribute("succ", "图书修改成功！");
-            return "redirect:/allbooks.html";
+        ClassInfo classInfo = classService.querySpecifyClass(classId);
+        if(classInfo.getName()==null){
+            System.out.println("classInfo为空");
         }
-        else {
-            redirectAttributes.addFlashAttribute("error", "图书修改失败！");
-            return "redirect:/allbooks.html";
+        else{
+            System.out.println("classInfo不为空，classInfo="+classInfo.getName());
         }
+
+        if(classService.querySpecifyClass(classId).getName()==null){
+            redirectAttributes.addFlashAttribute("error_class","图书修改失败，分类号不存在");
+        }
+        else if(publishService.getPublish(publishId).getPublishName()==null){
+            redirectAttributes.addFlashAttribute("error_publish","图书添加失败，出版社编号不存在");
+        }
+        else{
+            boolean succ=bookService.editBook(book);
+            if (succ){
+                redirectAttributes.addFlashAttribute("succ", "图书修改成功！");
+            }
+            else {
+                redirectAttributes.addFlashAttribute("error", "图书修改失败！");
+            }
+        }
+        return "redirect:/allbooks.html";
     }
 
-    @RequestMapping("/bookdetail.html")
+    @RequestMapping("/admin_book_detail.html")
     public ModelAndView bookDetail(HttpServletRequest request){
         long bookId=Integer.parseInt(request.getParameter("bookId"));
         Book book=bookService.getBook(bookId);
+        int publishId = book.getPublishId();
+        Publish publish = publishDao.getPublish(publishId);
+        String classId = book.getClassId();
+        ClassInfo classInfo = classService.querySpecifyClass(classId);
+        String className = classInfo.getName();
         ModelAndView modelAndView=new ModelAndView("admin_book_detail");
+        modelAndView.addObject("publish",publish.getPublishName());
+        modelAndView.addObject("className",className);
         modelAndView.addObject("detail",book);
         return modelAndView;
     }
@@ -220,9 +261,12 @@ public class BookController {
         Book book=bookService.getBook(bookId);
         int publishId = book.getPublishId();
         Publish publish = publishDao.getPublish(publishId);
-        System.out.println("publishId="+publishId+" publishName="+publish.getPublishName());
+        String classId = book.getClassId();
+        ClassInfo classInfo = classService.querySpecifyClass(classId);
+        String className = classInfo.getName();
         ModelAndView modelAndView=new ModelAndView("reader_book_detail");
         modelAndView.addObject("publish",publish.getPublishName());
+        modelAndView.addObject("className",className);
         modelAndView.addObject("detail",book);
         return modelAndView;
     }

@@ -83,7 +83,7 @@
                 </tr>
                 <tr>
                     <th>出版社</th>
-                    <td>${detail.publish}</td>
+                    <td>${publish}</td>
                 </tr>
                 <tr>
                     <th>ISBN</th>
@@ -110,8 +110,8 @@
                     <td>${detail.pubdate}</td>
                 </tr>
                 <tr>
-                    <th>分类号</th>
-                    <td>${detail.classId}</td>
+                    <th>所属类别</th>
+                    <td>${className}</td>
                 </tr>
                 <tr>
                     <th>书架号</th>

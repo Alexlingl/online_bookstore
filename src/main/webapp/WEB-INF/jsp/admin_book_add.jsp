@@ -87,16 +87,16 @@
                     <input type="text" class="form-control" name="name" id="name">
                 </div>
                 <div class="input-group">
-                    <span class="input-group-addon">作者</span>
+                    <span class="input-group-addon">作者（多个人名之间请用“；”分割）</span>
                     <input type="text" class="form-control" name="author" id="author" >
                 </div>
                 <div class="input-group">
-                    <span class="input-group-addon">译者</span>
+                    <span class="input-group-addon">译者（多个人名之间请用“；”分割）</span>
                     <input type="text" class="form-control" name="translator" id="translator" >
                 </div>
                 <div class="input-group">
                     <span  class="input-group-addon">出版社编号</span>
-                    <input type="text" class="form-control" name="publishId" id="publishId" >
+                    <input type="text" class="form-control" name="publishId" id="publishId" onkeyup="this.value=this.value.replace(/[^\d]/g,'') ">
                 </div>
                 <div class="input-group">
                     <span class="input-group-addon">ISBN</span>
@@ -108,7 +108,7 @@
                 </div>
                 <div class="input-group">
                     <span class="input-group-addon">语言</span>
-                    <input type="text" class="form-control" name="language" id="language" >
+                    <input type="text" class="form-control" name="language" id="language" onkeyup="this.value=this.value.replace(/[^\u4e00-\u9fa5a-zA-Z0-9\w]/g,'')">
                 </div>
                 <div class="input-group">
                     <span  class="input-group-addon">普通价格</span>
@@ -121,11 +121,11 @@
                 <div class="input-group">
                     <span class="input-group-addon">出版日期</span>
                     <span class="input-group-addon">年</span>
-                    <input type="text" class="form-control" name="year" id="year" >
+                    <input type="text" class="form-control" name="year" id="year" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " maxlength="4">
                     <span class="input-group-addon">月</span>
-                    <input type="text" class="form-control" name="month" id="month" >
+                    <input type="text" class="form-control" name="month" id="month" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " maxlength="2">
                     <span class="input-group-addon">日</span>
-                    <input type="text" class="form-control" name="day" id="day" >
+                    <input type="text" class="form-control" name="day" id="day" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " maxlength="2">
                 </div>
                 <div class="input-group">
                     <span  class="input-group-addon">分类号</span>
@@ -133,11 +133,11 @@
                 </div>
                 <div class="input-group">
                     <span class="input-group-addon">书架号</span>
-                    <input type="text" class="form-control" name="pressmark" id="pressmark" >
+                    <input type="text" class="form-control" name="pressmark" id="pressmark" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " >
                 </div>
                 <div class="input-group">
                     <span  class="input-group-addon">库存数量</span>
-                    <input type="text" class="form-control" name="state"  id="state" >
+                    <input type="text" class="form-control" name="state"  id="state" onkeyup="this.value=this.value.replace(/[^\d]/g,'') ">
                 </div>
                 <input type="submit" value="确定" class="btn btn-success btn-sm" class="text-left">
                 <script>

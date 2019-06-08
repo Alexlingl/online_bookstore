@@ -92,23 +92,23 @@
             <form action="sell_edit_do.html?serialNumber=${sell.serialNumber}" method="post" id="selledit" >
                 <div class="input-group">
                     <span class="input-group-addon">订单日期</span>
-                    <input type="text" class="form-control" name="date" id="date" value="${sell.date}" >
+                    <input type="text" readonly="readonly" class="form-control" name="date" id="date" value="${sell.date}" >
                 </div>
                 <div class="input-group">
                     <span  class="input-group-addon">客户账号</span>
-                    <input type="text" class="form-control" name="readerId" id="readerId"  value="${sell.readerId}" >
+                    <input type="text" readonly="readonly" class="form-control" name="readerId" id="readerId"  value="${sell.readerId}" onkeyup="this.value=this.value.replace(/[^\d]/g,'') ">
                 </div>
                 <div class="input-group">
                     <span class="input-group-addon">书籍编号</span>
-                    <input type="text" class="form-control" name="bookId" id="bookId"  value="${sell.bookId}" >
+                    <input type="text" class="form-control" name="bookId" id="bookId"  value="${sell.bookId}" onkeyup="this.value=this.value.replace(/[^\d]/g,'') ">
                 </div>
                 <div class="input-group">
                     <span  class="input-group-addon">数量</span>
-                    <input type="text" class="form-control" name="number" id="number"  value="${sell.number}" >
+                    <input type="text" class="form-control" name="number" id="number"  value="${sell.number}" onkeyup="this.value=this.value.replace(/[^\d]/g,'') ">
                 </div>
                 <div class="input-group">
                     <span  class="input-group-addon">订单状态(0表示待发货,1表示待接收,2表示已接收)</span>
-                    <input type="text" class="form-control" name="state" id="state"  value="${sell.state}" >
+                    <input type="text" class="form-control" name="state" id="state"  value="${sell.state}" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " maxlength="1">
                 </div>
                 <a class="btn btn-success btn-sm" href="/selllist.html" role="button">返回</a>
                 <input type="submit" value="确定" class="btn btn-success btn-sm" class="text-left">

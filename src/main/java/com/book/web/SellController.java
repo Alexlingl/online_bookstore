@@ -149,6 +149,7 @@ public class SellController {
         sell.setBookId(new Long(request.getParameter("bookId")));
         sell.setState(new Integer(request.getParameter("state")));
 
+
         //获取原来的订单信息
         int serialNumber = new Integer(request.getParameter("serialNumber"));
         Sell originSell = sellService.getSell(serialNumber);
@@ -163,16 +164,30 @@ public class SellController {
         //修改书籍的储存信息
         bookService.editBook(book);
 
+        //修改新书籍的库存数量
         long bookId = new Long(request.getParameter("bookId"));
         Book newBook = bookService.getBook(bookId);
         int newRemainderNumber = newBook.getState() - (new Integer(request.getParameter("number")));
+
+        if(bookService.getOneBook(bookId).getName()==null){
+            book.setState(remainderNumber - originNumber);
+            bookService.editBook(book);
+            redirectAttributes.addFlashAttribute("error_bookId","修改订单失败，书籍编号不存在！");
+            return "redirect:/selllist.html";
+        }
+        else if(newRemainderNumber<0){
+            book.setState(remainderNumber - originNumber);
+            bookService.editBook(book);
+            redirectAttributes.addFlashAttribute("error_bookNumber","修改订单失败，库存数量不足！");
+            return "redirect:/selllist.html";
+        }
+
         //设置库存数量
-        book.setState(newRemainderNumber);
+        newBook.setState(newRemainderNumber);
         //修改书籍的储存信息
         bookService.editBook(newBook);
 
         //修改订单信息
-        System.out.println("readerId="+new Integer(request.getParameter("readerId")));
         ReaderCard readerCard= readerCardService.getReaderCard(new Integer(request.getParameter("readerId")));
         int vip_state = readerCard.getVipState();
         //判断当期用户是不是会员
@@ -183,7 +198,6 @@ public class SellController {
             sell.setPrice(book.getPrice().multiply(new BigDecimal(request.getParameter("number"))));
         }
 
-        System.out.println(sell.getBookId()+";"+sell.getPrice());
         boolean succ = sellService.editSell(sell);
         if(succ){
             redirectAttributes.addFlashAttribute("succ","订单修改成功");

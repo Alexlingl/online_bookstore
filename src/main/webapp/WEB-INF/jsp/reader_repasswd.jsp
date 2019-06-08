@@ -93,7 +93,7 @@
     <div class="form-group">
         <label for="oldPasswd" class="col-sm-2 control-label">旧密码</label>
         <div class="col-sm-10">
-            <input  class="form-control" type="password" id="oldPasswd" name="oldPasswd" placeholder="输入旧密码">
+            <input  class="form-control" type="password" id="oldPasswd" name="oldPasswd" placeholder="输入旧密码" >
         </div>
     </div>
     <div class="form-group">

@@ -84,12 +84,12 @@
         <div class="panel-body">
             <form action="publish_add_do.html?" method="post" id="publishadd" >
                 <div class="input-group">
-                    <span class="input-group-addon">名字</span>
-                    <input type="text" class="form-control" name="publishName" id="publishName" >
+                    <span class="input-group-addon">出版社名字</span>
+                    <input type="text" class="form-control" name="publishName" id="publishName" onkeyup="this.value=this.value.replace(/[^\u4e00-\u9fa5a-zA-Z0-9\w]/g,'')">
                 </div>
                 <div class="input-group">
                     <span  class="input-group-addon">联系电话</span>
-                    <input type="text" class="form-control" name="phone" id="phone" >
+                    <input type="text" class="form-control" name="phone" id="phone" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " maxlength="11">
                 </div>
                 <div class="input-group">
                     <span  class="input-group-addon">联系人</span>
@@ -101,7 +101,7 @@
                 </div>
                 <div class="input-group">
                     <span  class="input-group-addon">地址</span>
-                    <input type="text" class="form-control" name="address" id="address" >
+                    <input type="text" class="form-control" name="address" id="address" onkeyup="this.value=this.value.replace(/[^\u4e00-\u9fa5a-zA-Z0-9\w]/g,'')">
                 </div>
                 <input type="submit" value="确定" class="btn btn-success btn-sm" class="text-left">
                 <script>
