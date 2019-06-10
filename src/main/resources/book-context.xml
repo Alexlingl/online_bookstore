@@ -8,17 +8,20 @@
         http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context-4.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-        <!-- 扫描类包，将标注Spring注解的类自动转化为Bean，同时完成Bean的注入  -->
-        <context:component-scan base-package="com.book.dao"/>
+    <!-- 扫描类包，将标注Spring注解的类自动转化为Bean，同时完成Bean的注入  -->
+    <context:component-scan base-package="com.book.dao"/>
     <context:component-scan base-package="com.book.service"/>
+
+    <context:property-placeholder location="classpath:config.properties"/>
 
     <!--  定义一个使用DBCP实现的数据源 -->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
           destroy-method="close"
-          p:driverClassName="com.mysql.jdbc.Driver"
-          p:url="jdbc:mysql://localhost:3306/library?characterEncoding=UTF8"
-          p:username="root"
-          p:password="admin"/>
+          p:driverClassName="${jdbc.driver}"
+          p:url="${jdbc.url}"
+          p:username="${jdbc.username}"
+          p:password="${jdbc.password}"/>
+
     <!-- 定义JDBC模板Bean   -->
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"
           p:dataSource-ref="dataSource"/>
@@ -31,20 +34,20 @@
     <!-- 第二步 开启事务注解 -->
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
-    <!-- redis -->
-    <!-- jedis 配置 -->
+    <!-- redis 配置-->
     <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig" >
-        <property name="maxIdle" value="300" />
-        <property name="maxWaitMillis" value="1000" />
+        <property name="maxIdle" value="${redis.maxIdle}" />
+        <property name="maxWaitMillis" value="${redis.maxWait}" />
         <property name="testOnBorrow" value="true" />
     </bean >
+
     <!-- redis服务器中心 -->
     <bean id="connectionFactory"  class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory" >
         <property name="poolConfig" ref="poolConfig" />
-        <property name="port" value="6379" />
-        <property name="hostName" value="127.0.0.1" />
-        <property name="password" value="test123" />
-        <property name="timeout" value="3000" ></property>
+        <property name="port" value="${redis.port}" />
+        <property name="hostName" value="${redis.host}" />
+        <property name="password" value="${redis.password}" />
+        <property name="timeout" value="${redis.timeout}" ></property>
     </bean >
     <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate" >
         <property name="connectionFactory" ref="connectionFactory" />

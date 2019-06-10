@@ -182,13 +182,13 @@
     </ol>
     <div class="carousel-inner">
         <div class="item active">
-            <img src="img/82839-106.jpg" alt="第一张">
+            <img src="img/2019060801.jpg" alt="第一张">
         </div>
         <div class="item">
-            <img src="img/105905-106.jpg" alt="第二张">
+            <img src="img/2019060802.jpg" alt="第二张">
         </div>
         <div class="item">
-            <img src="img/296494-106.jpg" alt="第三张">
+            <img src="img/2019060803.jpg" alt="第三张">
         </div>
 
     </div>
