@@ -1,18 +1,12 @@
 package com.book.web;
 
-import com.book.dao.BookDao;
-import com.book.dao.PublishDao;
-import com.book.domain.Book;
 import com.book.domain.Publish;
-import com.book.service.BookService;
 import com.book.service.PublishService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;

@@ -92,7 +92,7 @@
                 </tbody>
             </table>
         </div>
-        <a class="btn btn-success btn-sm" href="reader_book_detail.html?searchWord=<c:out value="${searchWord}"></c:out>" role="button">返回</a>
+        <%--<a class="btn btn-success btn-sm" href="reader_book_detail.html?searchWord=<c:out value="${searchWord}"></c:out>" role="button">返回</a>--%>
     </div>
 
 </div>

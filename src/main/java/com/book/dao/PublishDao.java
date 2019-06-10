@@ -1,17 +1,14 @@
 package com.book.dao;
 
-import com.book.domain.Book;
+
 import com.book.domain.Publish;
-import org.apache.catalina.startup.PasswdUserDatabase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.stereotype.Repository;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 @Repository
 public class PublishDao {
