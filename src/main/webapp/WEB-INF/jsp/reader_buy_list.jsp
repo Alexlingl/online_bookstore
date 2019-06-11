@@ -92,9 +92,9 @@
         <table class="table table-hover">
             <thead>
             <tr>
-                <th>流水号</th>
-                <th>日期</th>
-                <th>客户账号</th>
+                <%--<th>流水号</th>--%>
+                <th>下单日期</th>
+                <%--<th>客户账号</th>--%>
                 <th>书号</th>
                 <th>书名</th>
                 <th>数量</th>
@@ -105,9 +105,9 @@
             <tbody>
             <c:forEach items="${list}" var="alog">
                 <tr>
-                    <td><c:out value="${alog.serialNumber}"></c:out></td>
+                    <%--<td><c:out value="${alog.serialNumber}"></c:out></td>--%>
                     <td><c:out value="${alog.date}"></c:out></td>
-                    <td><c:out value="${alog.readerId}"></c:out></td>
+                    <%--<td><c:out value="${alog.readerId}"></c:out></td>--%>
                     <td><c:out value="${alog.bookId}"></c:out></td>
                     <td><c:out value="${alog.bookName}"></c:out></td>
                     <td><c:out value="${alog.number}"></c:out></td>

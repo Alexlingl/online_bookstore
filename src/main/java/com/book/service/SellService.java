@@ -41,7 +41,6 @@ public class SellService {
     @Transactional(rollbackFor = {Exception.class})
     public boolean editAndAdd(BookService bookService,Book book,Sell sell){
         boolean bookSucc = bookService.editBook(book);
-        System.out.println("书籍信息修改结果："+bookSucc);
         boolean sellSucc = false;
         if(bookSucc){
 //            int i=2/0;

@@ -98,7 +98,15 @@ public class SellController {
         }
 
         ModelAndView modelAndView=new ModelAndView("reader_buy_list");
-        modelAndView.addObject("list", sellService.mySellList(readerCard.getReaderId()));
+        ArrayList<Sell> sell_list = sellService.mySellList(readerCard.getReaderId());
+        //获取书籍名字
+        for(int i=0;i<sell_list.size();i++){
+            Sell sellTmp = sell_list.get(i);
+            long bookIdTmp = sellTmp.getBookId();
+            sell_list.get(i).setBookName(bookService.getBook(bookIdTmp).getName());
+        }
+        modelAndView.addObject("list",sell_list);
+//        modelAndView.addObject("list", sellService.mySellList(readerCard.getReaderId()));
         if (buySucc){
             modelAndView.addObject("succ", "图书购买成功！");
         }else {
