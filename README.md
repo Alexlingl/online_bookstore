@@ -16,6 +16,6 @@ Based on Spring, SpringMVC, the front end uses the Bootstrap, the database is my
 
 四、Import Project
 
-exploitation environment：IDEA 2018.2.1
+exploitation environment：IDEA 2018.2.1/mysql 5.7.14/Redis 3.0.504
 
-It is highly recommended to import projects using maven.
+It is highly recommended to import projects using maven.It will help you import all the packages you need, which have been defined in pom.xml.
