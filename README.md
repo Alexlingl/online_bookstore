@@ -10,9 +10,21 @@ Based on Spring, SpringMVC, the front end uses the Bootstrap, the database is my
 
 1、Login Page
 
+![image](https://github.com/Alexlingl/online_bookstore/blob/master/preview/LoginPage.png)
+
 2、User interface
 
+![image](https://github.com/Alexlingl/online_bookstore/blob/master/preview/UserIndex.png)
+
+![image](https://github.com/Alexlingl/online_bookstore/blob/master/preview/UserSearch.png)
+
 3、Admin interface
+
+![image](https://github.com/Alexlingl/online_bookstore/blob/master/preview/AdminIndex.png)
+
+![image](https://github.com/Alexlingl/online_bookstore/blob/master/preview/AdminBooks.png)
+
+![image](https://github.com/Alexlingl/online_bookstore/blob/master/preview/AdminSells.png)
 
 四、Import Project
 
