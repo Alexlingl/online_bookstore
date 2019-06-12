@@ -118,7 +118,7 @@ public class BookController {
     }
 
     @RequestMapping("/book_add_do.html")
-    public String addBookDo(HttpServletRequest request, BookAddCommand bookAddCommand,RedirectAttributes redirectAttributes) throws Exception{
+    public String addBookDo(HttpServletRequest request, RedirectAttributes redirectAttributes) throws Exception{
         Book book = new Book();
         book.setBookId(0);
         book.setName(new String(request.getParameter("name").getBytes("ISO8859-1"),"UTF-8"));
@@ -162,7 +162,7 @@ public class BookController {
                 redirectAttributes.addFlashAttribute("succ", "图书添加成功！");
             }
             else {
-                redirectAttributes.addFlashAttribute("succ", "图书添加失败！");
+                redirectAttributes.addFlashAttribute("error", "图书添加失败！");
             }
         }
         return "redirect:/allbooks.html";
@@ -209,14 +209,6 @@ public class BookController {
         String classId =new String(request.getParameter("classId").getBytes("ISO8859-1"),"UTF-8");
         book.setClassId(classId);
         book.setState(new Integer(new String(request.getParameter("state").getBytes("ISO8859-1"),"UTF-8")));
-
-        ClassInfo classInfo = classService.querySpecifyClass(classId);
-        if(classInfo.getName()==null){
-            System.out.println("classInfo为空");
-        }
-        else{
-            System.out.println("classInfo不为空，classInfo="+classInfo.getName());
-        }
 
         if(classService.querySpecifyClass(classId).getName()==null){
             redirectAttributes.addFlashAttribute("error_class","图书修改失败，分类号不存在");

@@ -85,11 +85,11 @@ public class LoginController {
     }
 
     //当用户以普通读者的账号登录时,为其返回/WEBIF/jsp/reader_main.jsp界面
-    @RequestMapping("/reader_main.html")
-    public ModelAndView toReaderMain(HttpServletResponse response) {
-        System.out.println("Enter to reader_main.jsp");
-        return new ModelAndView("reader_main");
-    }
+    //已废弃，现在当用户以普通身份登录时进入热榜界面
+//    @RequestMapping("/reader_main.html")
+//    public ModelAndView toReaderMain(HttpServletResponse response) {
+//        return new ModelAndView("reader_main");
+//    }
 
     @RequestMapping("/admin_repasswd.html")
     public ModelAndView reAdminPasswd() {
