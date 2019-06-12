@@ -1,4 +1,4 @@
-一、item description 
+一、Item description 
 
 The project is an online bookstore based on JavaWeb, including administrator and user interface. The user interface realizes the functions of book inquiry, hot sales list, information modification, order purchase and so on, while the administrator interface realizes the addition and modification of books, publishing houses and other information, and the modification of order status.
 
@@ -18,4 +18,4 @@ Based on Spring, SpringMVC, the front end uses the Bootstrap, the database is my
 
 exploitation environment：IDEA 2018.2.1/mysql 5.7.14/Redis 3.0.504
 
-It is highly recommended to import projects using maven.It will help you import all the packages you need, which have been defined in pom.xml.
+It is highly recommended to import projects using maven.It will help you import all the packages you need, which have been defined in pom.xml file.
