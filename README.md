@@ -28,6 +28,14 @@ Based on Spring, SpringMVC, the front end uses the Bootstrap, the database is my
 
 四、Import Project
 
+1、Build a development environment
+
 exploitation environment：IDEA 2018.2.1/mysql 5.7.14/Redis 3.0.504
+
+2、Import database data
+
+You need to build a database called library in mysql and import the corresponding structure and data into the library database through the library.sql file.
+
+3、Import project source code
 
 It is highly recommended to import projects using maven.It will help you import all the packages you need, which have been defined in pom.xml file.
